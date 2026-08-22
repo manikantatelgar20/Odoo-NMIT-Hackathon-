@@ -9,7 +9,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
-    <title>Corely | Academics</title>
+    <title>Corely | Attendance</title>
 
     <link
         rel="stylesheet"
@@ -38,7 +38,6 @@
 
         .topbar p {
             color: #7b8097;
-            margin-top: 8px;
         }
 
         .student-pill {
@@ -99,13 +98,11 @@
             background: #fafaff;
             font-size: 15px;
             outline: none;
-            transition: .2s;
         }
 
         .form-group input:focus {
             border-color: #7968f7;
             box-shadow: 0 0 0 4px rgba(121,104,247,.1);
-            background: white;
         }
 
         .form-group input[readonly] {
@@ -130,11 +127,6 @@
                 #e17dc6
             );
             box-shadow: 0 10px 25px rgba(112,96,247,.25);
-            transition: .2s;
-        }
-
-        .add-btn:hover {
-            transform: translateY(-3px);
         }
 
         .message {
@@ -156,13 +148,13 @@
 
         .summary-grid {
             display: grid;
-            grid-template-columns: repeat(4,1fr);
+            grid-template-columns: repeat(3,1fr);
             gap: 18px;
             margin-bottom: 25px;
         }
 
         .summary {
-            padding: 22px;
+            padding: 25px;
             border-radius: 20px;
             background: linear-gradient(
                 135deg,
@@ -179,90 +171,96 @@
         .summary strong {
             display: block;
             margin-top: 8px;
-            font-size: 28px;
+            font-size: 30px;
             color: #302e4c;
         }
 
-        .subjects {
+        .attendance-list {
             display: grid;
             grid-template-columns: repeat(2,1fr);
             gap: 18px;
         }
 
-        .subject-card {
+        .attendance-item {
             padding: 22px;
             border-radius: 20px;
             background: white;
             border: 1px solid #e5e5f0;
             box-shadow: 0 10px 30px rgba(70,60,130,.07);
-            transition: .2s;
         }
 
-        .subject-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .subject-header {
+        .attendance-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .subject-name {
+        .attendance-name {
             font-size: 20px;
             font-weight: 800;
             color: #292d43;
         }
 
-        .grade {
-            padding: 9px 13px;
-            border-radius: 12px;
-            background: #eeeaff;
-            color: #6958e8;
+        .percentage {
+            font-size: 25px;
             font-weight: 900;
         }
 
-        .marks {
-            display: grid;
-            grid-template-columns: repeat(3,1fr);
-            gap: 10px;
-            margin-top: 20px;
+        .good {
+            color: #25a879;
         }
 
-        .mark {
-            background: #f7f7fc;
-            padding: 13px;
-            border-radius: 12px;
-            text-align: center;
+        .warning {
+            color: #e19a3c;
         }
 
-        .mark small {
-            display: block;
-            color: #85899d;
-            font-size: 10px;
+        .danger {
+            color: #d9586d;
         }
 
-        .mark strong {
-            display: block;
-            margin-top: 5px;
-            font-size: 20px;
-        }
-
-        .progress {
-            height: 8px;
-            background: #eeeef6;
+        .attendance-bar {
+            height: 10px;
+            background: #eeeeF7;
             border-radius: 10px;
             overflow: hidden;
             margin-top: 18px;
         }
 
-        .progress div {
+        .attendance-fill {
             height: 100%;
+            border-radius: 10px;
+        }
+
+        .attendance-fill.good {
             background: linear-gradient(
                 90deg,
-                #7160f7,
-                #c66de4
+                #43c59e,
+                #65d7ad
             );
+        }
+
+        .attendance-fill.warning {
+            background: linear-gradient(
+                90deg,
+                #f0ad55,
+                #f5c36c
+            );
+        }
+
+        .attendance-fill.danger {
+            background: linear-gradient(
+                90deg,
+                #e35c75,
+                #ee8294
+            );
+        }
+
+        .attendance-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 14px;
+            color: #85899d;
+            font-size: 12px;
         }
 
         .delete-btn {
@@ -303,12 +301,12 @@
             }
 
             .form-grid,
-            .subjects {
+            .attendance-list {
                 grid-template-columns: 1fr;
             }
 
             .summary-grid {
-                grid-template-columns: repeat(2,1fr);
+                grid-template-columns: 1fr;
             }
 
         }
@@ -321,45 +319,54 @@
 <body>
 
 
-<!-- Keep your existing sidebar here -->
-
-
 <main class="page">
+
 
     <div class="topbar">
 
         <div>
 
             <h1>
-                Academics 🎓
+                Attendance 📊
             </h1>
 
             <p>
-                Add and manage your academic performance.
+                Track your attendance subject by subject.
             </p>
 
         </div>
 
         <div class="student-pill">
-            🎓 Student
+            📊 Student
         </div>
 
     </div>
 
 
-    <!-- =========================================
-         SUMMARY
-    ========================================== -->
+    <!-- SUMMARY -->
 
     <div class="summary-grid">
 
         <div class="summary">
 
             <small>
-                SUBJECTS
+                OVERALL ATTENDANCE
             </small>
 
-            <strong id="subjectCount">
+            <strong id="overallAttendance">
+                --
+            </strong>
+
+        </div>
+
+
+        <div class="summary">
+
+            <small>
+                SAFE SUBJECTS
+            </small>
+
+            <strong id="safeSubjects">
                 0
             </strong>
 
@@ -369,37 +376,11 @@
         <div class="summary">
 
             <small>
-                AVERAGE
+                NEEDS ATTENTION
             </small>
 
-            <strong id="averageMarks">
-                --
-            </strong>
-
-        </div>
-
-
-        <div class="summary">
-
-            <small>
-                BEST GRADE
-            </small>
-
-            <strong id="bestGrade">
-                --
-            </strong>
-
-        </div>
-
-
-        <div class="summary">
-
-            <small>
-                CGPA ESTIMATE
-            </small>
-
-            <strong id="cgpa">
-                --
+            <strong id="warningSubjects">
+                0
             </strong>
 
         </div>
@@ -407,26 +388,25 @@
     </div>
 
 
-    <!-- =========================================
-         ADD SUBJECT
-    ========================================== -->
+    <!-- ADD ATTENDANCE -->
 
     <section class="card">
 
         <div class="card-title">
 
             <h2>
-                ➕ Add Subject
+                ➕ Add Attendance
             </h2>
 
             <span>
-                Corely Academics
+                Corely Tracker
             </span>
 
         </div>
 
 
-        <form id="academicForm">
+        <form id="attendanceForm">
+
 
             <div class="form-grid">
 
@@ -434,12 +414,12 @@
                 <div class="form-group">
 
                     <label>
-                        Subject Name
+                        Subject
                     </label>
 
                     <input
                         type="text"
-                        id="academicSubject"
+                        id="attendanceSubject"
                         placeholder="e.g. Mathematics"
                         required>
 
@@ -449,15 +429,14 @@
                 <div class="form-group">
 
                     <label>
-                        Internal Marks
+                        Present Classes
                     </label>
 
                     <input
                         type="number"
-                        id="internalMarks"
+                        id="presentClasses"
                         min="0"
-                        max="100"
-                        placeholder="e.g. 45"
+                        placeholder="e.g. 23"
                         required>
 
                 </div>
@@ -466,15 +445,14 @@
                 <div class="form-group">
 
                     <label>
-                        Semester End Marks
+                        Total Classes
                     </label>
 
                     <input
                         type="number"
-                        id="semesterMarks"
-                        min="0"
-                        max="100"
-                        placeholder="e.g. 48"
+                        id="totalClasses"
+                        min="1"
+                        placeholder="e.g. 25"
                         required>
 
                 </div>
@@ -483,12 +461,12 @@
                 <div class="form-group">
 
                     <label>
-                        Total
+                        Attendance Percentage
                     </label>
 
                     <input
-                        type="number"
-                        id="academicTotal"
+                        type="text"
+                        id="attendancePercentage"
                         readonly
                         placeholder="Automatic">
 
@@ -502,28 +480,27 @@
                 type="submit"
                 class="add-btn">
 
-                + Save Subject
+                + Save Attendance
 
             </button>
 
 
-            <div id="academicMessage"></div>
+            <div id="attendanceMessage"></div>
+
 
         </form>
 
     </section>
 
 
-    <!-- =========================================
-         SUBJECTS
-    ========================================== -->
+    <!-- ATTENDANCE LIST -->
 
     <section class="card">
 
         <div class="card-title">
 
             <h2>
-                📚 My Subjects
+                📚 My Attendance
             </h2>
 
             <span>
@@ -534,12 +511,12 @@
 
 
         <div
-            id="subjects"
-            class="subjects">
+            id="attendanceList"
+            class="attendance-list">
 
             <div class="empty">
 
-                Loading your subjects...
+                Loading attendance...
 
             </div>
 
@@ -548,22 +525,20 @@
     </section>
 
 
-    <!-- =========================================
-         AI
-    ========================================== -->
+    <!-- AI -->
 
     <section class="card ai-box">
 
         <h3>
-            ✦ Corely AI Academic Insight
+            ✦ Corely AI Attendance Insight
         </h3>
 
-        <strong id="academicAI">
-            Add your subjects to receive an insight.
+        <strong id="attendanceAI">
+            Add your attendance to receive an insight.
         </strong>
 
-        <p id="academicAIDescription">
-            Corely AI will analyze your academic performance.
+        <p id="attendanceAIDescription">
+            Corely AI will analyze your attendance.
         </p>
 
     </section>
@@ -573,7 +548,7 @@
 
 
 <script src="js/api.js"></script>
-<script src="js/academics.js"></script>
+<script src="js/attendance.js"></script>
 
 
 </body>

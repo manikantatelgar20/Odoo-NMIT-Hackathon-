@@ -2,16 +2,19 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const { pool } =
-    require("../config/database");
+const { pool } = require("../config/database");
+
+const authenticateToken =
+    require("../middleware/auth.middleware");
+
 
 const router = express.Router();
 
 
-// ========================================
+// =====================================================
 // REGISTER
 // POST /api/auth/register
-// ========================================
+// =====================================================
 
 router.post("/register", async (req, res) => {
 
@@ -25,6 +28,10 @@ router.post("/register", async (req, res) => {
         } = req.body;
 
 
+        // ---------------------------------------------
+        // Required fields
+        // ---------------------------------------------
+
         if (
             !name ||
             !studentId ||
@@ -33,12 +40,20 @@ router.post("/register", async (req, res) => {
         ) {
 
             return res.status(400).json({
+
                 success: false,
-                message: "All fields are required."
+
+                message:
+                    "All fields are required."
+
             });
 
         }
 
+
+        // ---------------------------------------------
+        // Clean input
+        // ---------------------------------------------
 
         const cleanName =
             name.trim();
@@ -50,27 +65,45 @@ router.post("/register", async (req, res) => {
             email.trim().toLowerCase();
 
 
+        // ---------------------------------------------
+        // Validate name
+        // ---------------------------------------------
+
         if (cleanName.length < 2) {
 
             return res.status(400).json({
+
                 success: false,
+
                 message:
                     "Name must contain at least 2 characters."
+
             });
 
         }
 
+
+        // ---------------------------------------------
+        // Validate student ID
+        // ---------------------------------------------
 
         if (cleanStudentId.length < 3) {
 
             return res.status(400).json({
+
                 success: false,
+
                 message:
                     "Invalid student ID."
+
             });
 
         }
 
+
+        // ---------------------------------------------
+        // Validate email
+        // ---------------------------------------------
 
         const emailPattern =
             /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -79,24 +112,38 @@ router.post("/register", async (req, res) => {
         if (!emailPattern.test(cleanEmail)) {
 
             return res.status(400).json({
+
                 success: false,
+
                 message:
                     "Invalid email address."
+
             });
 
         }
 
+
+        // ---------------------------------------------
+        // Validate password
+        // ---------------------------------------------
 
         if (password.length < 8) {
 
             return res.status(400).json({
+
                 success: false,
+
                 message:
                     "Password must contain at least 8 characters."
+
             });
 
         }
 
+
+        // ---------------------------------------------
+        // Check duplicate user
+        // ---------------------------------------------
 
         const existingUser =
             await pool.query(
@@ -116,13 +163,20 @@ router.post("/register", async (req, res) => {
         if (existingUser.rows.length > 0) {
 
             return res.status(409).json({
+
                 success: false,
+
                 message:
                     "Email or student ID is already registered."
+
             });
 
         }
 
+
+        // ---------------------------------------------
+        // Hash password
+        // ---------------------------------------------
 
         const passwordHash =
             await bcrypt.hash(
@@ -130,6 +184,10 @@ router.post("/register", async (req, res) => {
                 12
             );
 
+
+        // ---------------------------------------------
+        // Insert user
+        // ---------------------------------------------
 
         const result =
             await pool.query(
@@ -159,6 +217,10 @@ router.post("/register", async (req, res) => {
             );
 
 
+        // ---------------------------------------------
+        // Success
+        // ---------------------------------------------
+
         return res.status(201).json({
 
             success: true,
@@ -183,18 +245,24 @@ router.post("/register", async (req, res) => {
         if (error.code === "23505") {
 
             return res.status(409).json({
+
                 success: false,
+
                 message:
                     "Email or student ID is already registered."
+
             });
 
         }
 
 
         return res.status(500).json({
+
             success: false,
+
             message:
-                "Unable to create account. Please try again."
+                "Unable to create account."
+
         });
 
     }
@@ -202,10 +270,10 @@ router.post("/register", async (req, res) => {
 });
 
 
-// ========================================
+// =====================================================
 // LOGIN
 // POST /api/auth/login
-// ========================================
+// =====================================================
 
 router.post("/login", async (req, res) => {
 
@@ -217,9 +285,9 @@ router.post("/login", async (req, res) => {
         } = req.body;
 
 
-        // -------------------------------
-        // Validate input
-        // -------------------------------
+        // ---------------------------------------------
+        // Validate fields
+        // ---------------------------------------------
 
         if (!email || !password) {
 
@@ -239,9 +307,9 @@ router.post("/login", async (req, res) => {
             email.trim().toLowerCase();
 
 
-        // -------------------------------
+        // ---------------------------------------------
         // Find user
-        // -------------------------------
+        // ---------------------------------------------
 
         const result =
             await pool.query(
@@ -277,9 +345,9 @@ router.post("/login", async (req, res) => {
             result.rows[0];
 
 
-        // -------------------------------
+        // ---------------------------------------------
         // Verify password
-        // -------------------------------
+        // ---------------------------------------------
 
         const passwordValid =
             await bcrypt.compare(
@@ -302,9 +370,31 @@ router.post("/login", async (req, res) => {
         }
 
 
-        // -------------------------------
+        // ---------------------------------------------
+        // Check JWT secret
+        // ---------------------------------------------
+
+        if (!process.env.JWT_SECRET) {
+
+            console.error(
+                "JWT_SECRET is missing from .env"
+            );
+
+            return res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Authentication configuration error."
+
+            });
+
+        }
+
+
+        // ---------------------------------------------
         // Create JWT
-        // -------------------------------
+        // ---------------------------------------------
 
         const token =
             jwt.sign(
@@ -325,13 +415,16 @@ router.post("/login", async (req, res) => {
             );
 
 
-        // Never send password_hash
+        // ---------------------------------------------
+        // Remove password hash
+        // ---------------------------------------------
+
         delete user.password_hash;
 
 
-        // -------------------------------
+        // ---------------------------------------------
         // Success
-        // -------------------------------
+        // ---------------------------------------------
 
         return res.status(200).json({
 
@@ -340,9 +433,9 @@ router.post("/login", async (req, res) => {
             message:
                 "Login successful.",
 
-            token,
+            token: token,
 
-            user
+            user: user
 
         });
 
@@ -360,7 +453,7 @@ router.post("/login", async (req, res) => {
             success: false,
 
             message:
-                "Unable to login. Please try again."
+                "Unable to login."
 
         });
 
@@ -368,5 +461,100 @@ router.post("/login", async (req, res) => {
 
 });
 
+
+// =====================================================
+// CURRENT USER
+// GET /api/auth/me
+// =====================================================
+
+router.get(
+    "/me",
+    authenticateToken,
+    async (req, res) => {
+
+        try {
+
+            // -----------------------------------------
+            // JWT contains userId
+            // -----------------------------------------
+
+            const userId =
+                req.user.userId;
+
+
+            // -----------------------------------------
+            // Get user from PostgreSQL
+            // -----------------------------------------
+
+            const result =
+                await pool.query(
+                    `
+                    SELECT
+                        id,
+                        name,
+                        student_id,
+                        email,
+                        created_at
+                    FROM users
+                    WHERE id = $1
+                    `,
+                    [userId]
+                );
+
+
+            if (result.rows.length === 0) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "User not found."
+
+                });
+
+            }
+
+
+            // -----------------------------------------
+            // Return current user
+            // -----------------------------------------
+
+            return res.status(200).json({
+
+                success: true,
+
+                user:
+                    result.rows[0]
+
+            });
+
+        }
+        catch (error) {
+
+            console.error(
+                "Get current user error:",
+                error.message
+            );
+
+
+            return res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Unable to retrieve user."
+
+            });
+
+        }
+
+    }
+);
+
+
+// =====================================================
+// EXPORT
+// =====================================================
 
 module.exports = router;

@@ -7,29 +7,72 @@ async function apiRequest(
     options = {}
 ) {
 
-    const response = await fetch(
-        `${CORELY_API_URL}${endpoint}`,
-        {
-            ...options,
+    const token =
+        localStorage.getItem(
+            "corelyToken"
+        );
 
-            headers: {
-                "Content-Type": "application/json",
-                ...(options.headers || {})
+
+    const headers = {
+
+        "Content-Type":
+            "application/json",
+
+        ...(options.headers || {})
+
+    };
+
+
+    if (token) {
+
+        headers.Authorization =
+            `Bearer ${token}`;
+
+    }
+
+
+    const response =
+        await fetch(
+            `${CORELY_API_URL}${endpoint}`,
+            {
+                ...options,
+                headers
             }
-        }
-    );
+        );
 
 
     let data = {};
 
+
     try {
 
-        data = await response.json();
+        data =
+            await response.json();
 
     }
     catch {
 
         data = {};
+
+    }
+
+
+    if (response.status === 401) {
+
+        localStorage.removeItem(
+            "corelyToken"
+        );
+
+        localStorage.removeItem(
+            "corelyUser"
+        );
+
+        window.location.href =
+            "login.html";
+
+        throw new Error(
+            "Session expired."
+        );
 
     }
 
@@ -45,4 +88,5 @@ async function apiRequest(
 
 
     return data;
+
 }

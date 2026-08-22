@@ -10,51 +10,205 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <meta
-        name="description"
-        content="Login to Corely"
-    >
-
-    <title>Corely | Login</title>
+    <title>CORELY — Login</title>
 
     <link
         rel="stylesheet"
-        href="css/style.css"
+        href="css/login.css"
     >
 
 </head>
 
 
-<body class="auth-page">
+<body>
 
 
-    <main class="auth-container">
+<!-- BACKGROUND -->
+
+<div class="grid"></div>
+
+<div class="glow purple"></div>
+
+<div class="glow blue"></div>
+
+<div class="glow pink"></div>
+
+<canvas id="particles"></canvas>
 
 
-        <!-- LOGO -->
+<!-- TOP BRAND -->
 
-        <div class="auth-brand">
+<header>
 
-            <div class="auth-logo">
-                C
+    <a
+        href="index.html"
+        class="brand"
+    >
+
+        <div class="brand-icon">
+            C
+        </div>
+
+        <div>
+
+            <strong>
+                CORELY
+            </strong>
+
+            <small>
+                ADAPTIVE INTELLIGENCE
+            </small>
+
+        </div>
+
+    </a>
+
+
+    <a
+        href="index.html"
+        class="back"
+    >
+        ← BACK
+    </a>
+
+</header>
+
+
+
+<!-- LOGIN -->
+
+<main class="login-wrapper">
+
+
+    <!-- LEFT SIDE -->
+
+    <section class="login-intro">
+
+
+        <div class="intro-tag">
+
+            <span></span>
+
+            CORELY / ACCESS
+
+        </div>
+
+
+        <h1>
+
+            WELCOME
+
+            <br>
+
+            <span>
+                BACK.
+            </span>
+
+        </h1>
+
+
+        <p>
+
+            Your academic intelligence
+            system is ready.
+
+            <br>
+
+            Sign in and continue building
+            a smarter student life.
+
+        </p>
+
+
+        <div class="mini-stats">
+
+            <div>
+
+                <strong>
+                    AI
+                </strong>
+
+                <span>
+                    ADAPTIVE
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    24/7
+                </strong>
+
+                <span>
+                    AVAILABLE
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    01
+                </strong>
+
+                <span>
+                    PLATFORM
+                </span>
+
             </div>
 
         </div>
 
 
-        <!-- TITLE -->
-
-        <h1>
-            Welcome back
-        </h1>
+    </section>
 
 
-        <p class="auth-subtitle">
-            Sign in to continue to your Corely dashboard.
+
+    <!-- LOGIN CARD -->
+
+    <section class="login-card">
+
+
+        <div class="card-glow"></div>
+
+
+        <div class="login-card-header">
+
+            <div class="login-icon">
+                C
+            </div>
+
+
+            <div>
+
+                <span>
+                    CORELY
+                </span>
+
+                <small>
+                    SECURE ACCESS
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <h2>
+            Sign in
+        </h2>
+
+
+        <p class="subtitle">
+            Enter your credentials to continue.
         </p>
 
 
-        <!-- LOGIN FORM -->
+
+        <!-- FORM -->
 
         <form
             id="loginForm"
@@ -62,107 +216,160 @@
         >
 
 
-            <!-- EMAIL -->
-
             <div class="form-group">
 
                 <label for="email">
-                    Email
+                    EMAIL
                 </label>
 
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    autocomplete="email"
-                    placeholder="you@example.com"
-                    required
-                >
+                <div class="input-box">
+
+                    <span>
+                        @
+                    </span>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                    >
+
+                </div>
+
 
                 <div
-                    class="form-error"
                     id="emailError"
+                    class="error"
                 ></div>
 
             </div>
 
 
-            <!-- PASSWORD -->
 
             <div class="form-group">
 
-                <label for="password">
-                    Password
-                </label>
+                <div class="password-label">
 
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    autocomplete="current-password"
-                    placeholder="Enter your password"
-                    required
-                >
+                    <label for="password">
+                        PASSWORD
+                    </label>
+
+                    <a href="#">
+                        FORGOT?
+                    </a>
+
+                </div>
+
+
+                <div class="input-box">
+
+                    <span>
+                        ◉
+                    </span>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                    >
+
+                    <button
+                        type="button"
+                        id="showPassword"
+                        class="show-password"
+                    >
+                        SHOW
+                    </button>
+
+                </div>
+
 
                 <div
-                    class="form-error"
                     id="passwordError"
+                    class="error"
                 ></div>
 
             </div>
 
 
-            <!-- LOGIN BUTTON -->
 
             <button
                 type="submit"
-                class="auth-button"
+                class="login-button"
             >
-                Sign In
+
+                <span>
+                    SIGN IN
+                </span>
+
+                <b>
+                    →
+                </b>
+
             </button>
 
 
         </form>
 
 
-        <!-- REGISTER LINK -->
 
-        <div class="auth-footer">
+        <div class="divider">
 
-            Don't have a Corely account?
+            <span></span>
+
+            OR
+
+            <span></span>
+
+        </div>
+
+
+        <div class="register">
+
+            <span>
+                Don't have a Corely account?
+            </span>
 
             <a href="register.html">
-                Create one
+                CREATE ACCOUNT →
             </a>
 
         </div>
 
 
-        <!-- BACK TO HOME -->
+        <div class="secure">
 
-        <div
-            class="auth-footer"
-            style="margin-top: 10px;"
-        >
+            <span></span>
 
-            <a href="index.html">
-                ← Back to Corely
-            </a>
+            SECURE CORELY CONNECTION
 
         </div>
 
 
-    </main>
+    </section>
+
+</main>
 
 
-    <!-- API MUST LOAD FIRST -->
 
-    <script src="js/api.js"></script>
+<!-- FOOTER -->
 
-    <!-- AUTH LOGIC -->
+<footer>
 
-    <script src="js/auth.js"></script>
+    <span>
+        CORELY © 2026
+    </span>
 
+    <span>
+        ADAPTIVE STUDENT INTELLIGENCE
+    </span>
+
+</footer>
+
+
+<script src="js/login.js"></script>
 
 </body>
 

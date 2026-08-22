@@ -11,37 +11,42 @@
     <title>Corely | Schedule</title>
 
     <link rel="stylesheet"
-          href="css/style.css">
+          href="css/corely.css">
 
 </head>
 
 <body>
 
-<div class="app-layout">
-
 <aside class="sidebar">
 
-    <a href="dashboard.html"
-       class="brand">
+    <div class="logo">
 
-        <div class="brand-logo">C</div>
-
-        <div>
-            <strong>Corely</strong>
-            <span>ADAPTIVE</span>
+        <div class="logo-icon">
+            C
         </div>
 
-    </a>
+        <div>
+            <div class="logo-name">
+                Corely
+            </div>
 
-    <nav class="sidebar-nav">
+            <span class="logo-tag">
+                ADAPTIVE
+            </span>
+        </div>
+
+    </div>
+
+
+    <nav class="nav">
 
         <a href="dashboard.html">
             ◉ Dashboard
         </a>
 
-        <a href="schedule.html"
-           class="active">
-            📅 My Schedule
+        <a class="active"
+           href="schedule.html">
+            ▣ My Schedule
         </a>
 
         <a href="tasks.html">
@@ -52,183 +57,317 @@
             🎓 Academics
         </a>
 
-        <a href="#">
+        <a href="attendance.html">
             📊 Attendance
         </a>
 
-        <a href="#">
-            ⚙ Profile
+        <a href="profile.html">
+            ◯ Profile
+        </a>
+
+        <a href="#"
+           onclick="logout(); return false;">
+            ↪ Logout
         </a>
 
     </nav>
 
+
+    <div class="sidebar-ai">
+
+        <div class="sidebar-ai-icon">
+            ✦
+        </div>
+
+        <strong>
+            Corely AI
+        </strong>
+
+        <p>
+            Smart schedule optimization
+        </p>
+
+    </div>
+
 </aside>
 
 
-<main class="app-main">
+<main class="main">
 
-    <header class="app-header">
 
-        <div>
+<header class="header animate">
 
-            <h1>
-                My Schedule
-            </h1>
+    <div>
 
-            <p>
-                Your planned activities for today.
-            </p>
+        <p class="header-label">
+            PLANNING
+        </p>
+
+        <h1>
+            My Schedule 📅
+        </h1>
+
+        <p>
+            Organize classes, study sessions and activities.
+        </p>
+
+    </div>
+
+
+    <div class="user-profile">
+
+        <div class="user-avatar">
+            C
+        </div>
+
+        <span>
+            Student
+        </span>
+
+    </div>
+
+</header>
+
+
+
+<section class="card animate">
+
+
+    <div class="card-title">
+
+        <h2>
+            Add Schedule Item
+        </h2>
+
+        <span>
+            Corely Planner
+        </span>
+
+    </div>
+
+
+    <form id="scheduleForm">
+
+
+        <div class="grid grid-2">
+
+
+            <div class="form-group">
+
+                <label>
+                    Subject / Activity
+                </label>
+
+                <input
+                    id="subject"
+                    type="text"
+                    placeholder="e.g. Mathematics"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Room / Location
+                </label>
+
+                <input
+                    id="location"
+                    type="text"
+                    placeholder="e.g. Room B-204">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Date
+                </label>
+
+                <input
+                    id="scheduleDate"
+                    type="date"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Start Time
+                </label>
+
+                <input
+                    id="startTime"
+                    type="time"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    End Time
+                </label>
+
+                <input
+                    id="endTime"
+                    type="time">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Type
+                </label>
+
+                <select id="scheduleType">
+
+                    <option value="class">
+                        Class
+                    </option>
+
+                    <option value="study">
+                        Study
+                    </option>
+
+                    <option value="exam">
+                        Exam
+                    </option>
+
+                    <option value="event">
+                        Event
+                    </option>
+
+                    <option value="other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
 
         </div>
 
-        <button class="btn btn-primary">
-            + Add Activity
+
+        <div class="form-group">
+
+            <label>
+                Description
+            </label>
+
+            <textarea
+                id="scheduleDescription"
+                rows="3"
+                placeholder="Optional details..."></textarea>
+
+        </div>
+
+
+        <div id="scheduleError"
+             style="
+                color:#ca5367;
+                font-size:11px;
+                margin-bottom:12px;
+             ">
+        </div>
+
+
+        <button
+            id="scheduleButton"
+            class="btn"
+            type="submit">
+
+            + Add to Schedule
+
         </button>
 
-    </header>
+    </form>
+
+</section>
 
 
-    <section class="page-panel">
 
-        <div class="panel-header">
-
-            <h2>
-                Saturday, August 22
-            </h2>
-
-            <span class="badge badge-medium">
-                82% FLOW
-            </span>
-
-        </div>
+<br>
 
 
-        <div class="schedule-row">
 
-            <span class="schedule-time">
-                09:00
-            </span>
+<section class="card animate delay-1">
 
-            <span class="schedule-dot"></span>
 
-            <div>
-                <strong>
-                    Morning Routine
-                </strong>
+    <div class="card-title">
 
-                <small>
-                    Personal • 30 minutes
-                </small>
+        <h2>
+            Your Schedule
+        </h2>
+
+        <span id="scheduleCount">
+            Loading...
+        </span>
+
+    </div>
+
+
+    <div id="scheduleList">
+
+        <div class="empty-state">
+
+            <div class="empty-state-icon">
+                📅
             </div>
 
-        </div>
-
-
-        <div class="schedule-row">
-
-            <span class="schedule-time">
-                10:00
-            </span>
-
-            <span class="schedule-dot"></span>
-
-            <div>
-                <strong>
-                    Mathematics Class
-                </strong>
-
-                <small>
-                    Room B-204 • 60 minutes
-                </small>
-            </div>
+            Loading schedule...
 
         </div>
 
+    </div>
 
-        <div class="schedule-row">
-
-            <span class="schedule-time">
-                12:00
-            </span>
-
-            <span class="schedule-dot"></span>
-
-            <div>
-                <strong>
-                    Lunch Break
-                </strong>
-
-                <small>
-                    Personal • 60 minutes
-                </small>
-            </div>
-
-        </div>
+</section>
 
 
-        <div class="schedule-row">
 
-            <span class="schedule-time">
-                13:30
-            </span>
-
-            <span class="schedule-dot"></span>
-
-            <div>
-                <strong>
-                    DSA Assignment
-                </strong>
-
-                <small>
-                    High priority • 90 minutes
-                </small>
-            </div>
-
-        </div>
+<br>
 
 
-        <div class="schedule-row">
 
-            <span class="schedule-time">
-                15:30
-            </span>
+<section class="card ai-card animate delay-2">
 
-            <span class="schedule-dot"></span>
+    <div class="ai-icon">
+        ✦
+    </div>
 
-            <div>
-                <strong>
-                    Java Revision
-                </strong>
+    <div class="ai-content">
 
-                <small>
-                    Study • 60 minutes
-                </small>
-            </div>
+        <small>
+            CORELY AI
+        </small>
 
-        </div>
+        <h3 id="scheduleAITitle">
+            Analyzing your schedule...
+        </h3>
 
+        <p id="scheduleAIDescription">
+            Corely will identify free time,
+            study opportunities and schedule conflicts.
+        </p>
 
-        <div class="adaptive-card">
+    </div>
 
-            <strong>
-                ✦ Adaptive schedule
-            </strong>
+</section>
 
-            <p>
-                If a disruption occurs, Corely will
-                evaluate the remaining activities,
-                deadlines and available time before
-                generating a revised plan.
-            </p>
-
-        </div>
-
-    </section>
 
 </main>
 
-</div>
 
+<script src="js/auth-guard.js"></script>
+<script src="js/api.js"></script>
 <script src="js/schedule.js"></script>
 
 </body>

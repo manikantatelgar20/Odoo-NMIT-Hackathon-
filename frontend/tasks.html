@@ -5,46 +5,56 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>Corely | Tasks</title>
 
-    <link rel="stylesheet"
-          href="css/style.css">
+    <link
+        rel="stylesheet"
+        href="css/corely.css">
 
 </head>
 
+
 <body>
 
-<div class="app-layout">
 
 <aside class="sidebar">
 
-    <a href="dashboard.html"
-       class="brand">
+    <div class="logo">
 
-        <div class="brand-logo">C</div>
-
-        <div>
-            <strong>Corely</strong>
-            <span>ADAPTIVE</span>
+        <div class="logo-icon">
+            C
         </div>
 
-    </a>
+        <div>
 
-    <nav class="sidebar-nav">
+            <div class="logo-name">
+                Corely
+            </div>
+
+            <span class="logo-tag">
+                ADAPTIVE
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="nav">
 
         <a href="dashboard.html">
             ◉ Dashboard
         </a>
 
         <a href="schedule.html">
-            📅 My Schedule
+            ▣ My Schedule
         </a>
 
-        <a href="tasks.html"
-           class="active">
+        <a class="active" href="tasks.html">
             ✓ Tasks
         </a>
 
@@ -52,180 +62,291 @@
             🎓 Academics
         </a>
 
-        <a href="#">
+        <a href="attendance.html">
             📊 Attendance
         </a>
 
-        <a href="#">
-            ⚙ Profile
+        <a href="profile.html">
+            ◯ Profile
+        </a>
+
+        <a href="#" onclick="logout(); return false;">
+            ↪ Logout
         </a>
 
     </nav>
 
+
+    <div class="sidebar-ai">
+
+        <div class="sidebar-ai-icon">
+            ✦
+        </div>
+
+        <strong>
+            Corely AI
+        </strong>
+
+        <p>
+            Smart task prioritization
+        </p>
+
+    </div>
+
 </aside>
 
 
-<main class="app-main">
 
-    <header class="app-header">
+<main class="main">
 
-        <div>
 
-            <h1>
-                Tasks
-            </h1>
+<header class="header">
 
-            <p>
-                Manage assignments and activities.
-            </p>
+    <div>
+
+        <p class="header-label">
+            PRODUCTIVITY
+        </p>
+
+        <h1>
+            Your Tasks ✓
+        </h1>
+
+        <p>
+            Organize your work and stay ahead of deadlines.
+        </p>
+
+    </div>
+
+
+    <div class="user-profile">
+
+        <div class="user-avatar">
+            C
+        </div>
+
+        <span>
+            Student
+        </span>
+
+    </div>
+
+</header>
+
+
+
+<section class="card animate">
+
+
+    <div class="card-title">
+
+        <h2>
+            Add a New Task
+        </h2>
+
+        <span>
+            Corely Planner
+        </span>
+
+    </div>
+
+
+    <form id="taskForm">
+
+
+        <div class="grid grid-2">
+
+
+            <div class="form-group">
+
+                <label>
+                    Task title
+                </label>
+
+                <input
+                    id="title"
+                    type="text"
+                    placeholder="e.g. Complete DSA assignment"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Priority
+                </label>
+
+                <select id="priority">
+
+                    <option value="low">
+                        Low
+                    </option>
+
+                    <option
+                        value="medium"
+                        selected>
+
+                        Medium
+
+                    </option>
+
+                    <option value="high">
+                        High
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Due date
+                </label>
+
+                <input
+                    id="dueDate"
+                    type="datetime-local">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Estimated minutes
+                </label>
+
+                <input
+                    id="estimatedMinutes"
+                    type="number"
+                    value="60"
+                    min="5">
+
+            </div>
+
 
         </div>
 
-        <button class="btn btn-primary">
+
+        <div class="form-group">
+
+            <label>
+                Description
+            </label>
+
+            <textarea
+                id="description"
+                rows="3"
+                placeholder="Add task details..."></textarea>
+
+        </div>
+
+
+        <div
+            id="taskError"
+            style="
+                color:#ca5367;
+                font-size:11px;
+                margin-bottom:12px;
+            ">
+        </div>
+
+
+        <button
+            class="btn"
+            id="addTaskButton"
+            type="submit">
+
             + Add Task
+
         </button>
 
-    </header>
+
+    </form>
+
+</section>
 
 
-    <section class="page-panel">
 
-        <div class="panel-header">
+<br>
 
-            <h2>
-                Your Tasks
-            </h2>
+
+
+<section class="card animate delay-1">
+
+    <div class="card-title">
+
+        <h2>
+            Your Tasks
+        </h2>
+
+        <span id="taskCount">
+            Loading...
+        </span>
+
+    </div>
+
+
+    <div id="taskList">
+
+        <div class="empty-state">
+
+            <div class="empty-state-icon">
+                ✓
+            </div>
+
+            Loading tasks...
 
         </div>
 
+    </div>
 
-        <div class="task-list">
-
-
-            <div class="task-row">
-
-                <input
-                    class="task-check"
-                    type="checkbox">
-
-                <div>
-
-                    <strong>
-                        DSA Assignment
-                    </strong>
-
-                    <small>
-                        Due today • 6:00 PM
-                    </small>
-
-                </div>
-
-                <span class="badge badge-high">
-                    HIGH
-                </span>
-
-                <small>
-                    90 min
-                </small>
-
-            </div>
+</section>
 
 
-            <div class="task-row">
 
-                <input
-                    class="task-check"
-                    type="checkbox">
-
-                <div>
-
-                    <strong>
-                        Physics Lab Report
-                    </strong>
-
-                    <small>
-                        Due tomorrow
-                    </small>
-
-                </div>
-
-                <span class="badge badge-high">
-                    HIGH
-                </span>
-
-                <small>
-                    120 min
-                </small>
-
-            </div>
+<br>
 
 
-            <div class="task-row">
 
-                <input
-                    class="task-check"
-                    type="checkbox">
+<section class="card ai-card animate delay-2">
 
-                <div>
+    <div class="ai-icon">
+        ✦
+    </div>
 
-                    <strong>
-                        Java Revision
-                    </strong>
+    <div class="ai-content">
 
-                    <small>
-                        Planned today
-                    </small>
+        <small>
+            CORELY AI
+        </small>
 
-                </div>
+        <h3>
+            Your tasks will appear here.
+        </h3>
 
-                <span class="badge badge-medium">
-                    MEDIUM
-                </span>
+        <p>
+            Corely will analyze priorities and deadlines
+            to recommend what you should focus on next.
+        </p>
 
-                <small>
-                    60 min
-                </small>
+    </div>
 
-            </div>
+</section>
 
-
-            <div class="task-row">
-
-                <input
-                    class="task-check"
-                    type="checkbox">
-
-                <div>
-
-                    <strong>
-                        Read Chemistry Chapter
-                    </strong>
-
-                    <small>
-                        Due this week
-                    </small>
-
-                </div>
-
-                <span class="badge badge-low">
-                    LOW
-                </span>
-
-                <small>
-                    45 min
-                </small>
-
-            </div>
-
-        </div>
-
-    </section>
 
 </main>
 
-</div>
 
+
+<script src="js/auth-guard.js"></script>
+<script src="js/api.js"></script>
 <script src="js/tasks.js"></script>
+
 
 </body>
 

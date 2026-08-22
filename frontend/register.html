@@ -5,175 +5,492 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>Corely | Register</title>
+    <title>CORELY — Create Account</title>
 
-    <link rel="stylesheet"
-          href="css/style.css">
+    <link
+        rel="stylesheet"
+        href="css/register.css"
+    >
 
 </head>
 
-<body class="auth-page">
 
-<div class="auth-container">
+<body>
 
-    <div class="auth-brand">
 
-        <div class="auth-logo">
+<!-- BACKGROUND -->
+
+<div class="grid"></div>
+
+<div class="glow purple"></div>
+
+<div class="glow blue"></div>
+
+<div class="glow pink"></div>
+
+<canvas id="particles"></canvas>
+
+
+<!-- HEADER -->
+
+<header>
+
+    <a
+        href="index.html"
+        class="brand"
+    >
+
+        <div class="brand-icon">
             C
         </div>
 
-    </div>
+        <div>
+
+            <strong>
+                CORELY
+            </strong>
+
+            <small>
+                ADAPTIVE INTELLIGENCE
+            </small>
+
+        </div>
+
+    </a>
 
 
-    <h1>
-        Create your account
-    </h1>
+    <a
+        href="login.html"
+        class="back"
+    >
+        ← SIGN IN
+    </a>
 
-    <p class="auth-subtitle">
-        Start building your adaptive student life.
-    </p>
-
-
-    <form id="registerForm"
-          novalidate>
+</header>
 
 
-        <div class="form-group">
 
-            <label for="name">
-                Full Name
-            </label>
+<!-- MAIN -->
 
-            <input
-                type="text"
-                id="name"
-                autocomplete="name"
-                placeholder="Your full name"
-                required>
+<main class="register-wrapper">
 
-            <div class="form-error"
-                 id="nameError">
+
+    <!-- LEFT -->
+
+    <section class="register-intro">
+
+
+        <div class="intro-tag">
+
+            <span></span>
+
+            CORELY / JOIN
+
+        </div>
+
+
+        <h1>
+
+            BUILD YOUR
+
+            <br>
+
+            <span>
+                BETTER DAY.
+            </span>
+
+        </h1>
+
+
+        <p>
+
+            Create your Corely account and
+            bring your academic life,
+            priorities and schedule together
+            in one intelligent workspace.
+
+        </p>
+
+
+        <!-- FEATURES -->
+
+        <div class="benefits">
+
+
+            <div class="benefit">
+
+                <div class="benefit-icon">
+                    ✦
+                </div>
+
+                <div>
+
+                    <strong>
+                        ADAPTIVE PLANNING
+                    </strong>
+
+                    <span>
+                        Build smarter daily schedules.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="benefit">
+
+                <div class="benefit-icon blue-icon">
+                    ◈
+                </div>
+
+                <div>
+
+                    <strong>
+                        SMART TASKS
+                    </strong>
+
+                    <span>
+                        Know what needs attention first.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="benefit">
+
+                <div class="benefit-icon pink-icon">
+                    ◉
+                </div>
+
+                <div>
+
+                    <strong>
+                        ACADEMIC INSIGHTS
+                    </strong>
+
+                    <span>
+                        Understand your academic progress.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- REGISTER CARD -->
+
+    <section class="register-card">
+
+
+        <div class="card-top-glow"></div>
+
+
+        <div class="card-header">
+
+            <div class="register-icon">
+                C
+            </div>
+
+            <div>
+
+                <span>
+                    CORELY
+                </span>
+
+                <small>
+                    CREATE ACCOUNT
+                </small>
+
             </div>
 
         </div>
 
 
-        <div class="form-group">
+        <h2>
+            Create account
+        </h2>
 
-            <label for="studentId">
-                Student ID
-            </label>
 
-            <input
-                type="text"
-                id="studentId"
-                placeholder="Your student ID"
-                required>
+        <p class="subtitle">
+            Start your adaptive student journey.
+        </p>
 
-            <div class="form-error"
-                 id="studentIdError">
+
+
+        <!-- FORM -->
+
+        <form
+            id="registerForm"
+            novalidate
+        >
+
+
+            <!-- NAME -->
+
+            <div class="form-group">
+
+                <label for="name">
+                    FULL NAME
+                </label>
+
+                <div class="input-box">
+
+                    <span>
+                        ◉
+                    </span>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Your full name"
+                        autocomplete="name"
+                    >
+
+                </div>
+
+
+                <div
+                    id="nameError"
+                    class="error"
+                ></div>
+
             </div>
+
+
+
+            <!-- STUDENT ID -->
+
+            <div class="form-group">
+
+                <label for="studentId">
+                    STUDENT ID
+                </label>
+
+                <div class="input-box">
+
+                    <span>
+                        #
+                    </span>
+
+                    <input
+                        type="text"
+                        id="studentId"
+                        placeholder="Your student ID"
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <div
+                    id="studentIdError"
+                    class="error"
+                ></div>
+
+            </div>
+
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label for="email">
+                    EMAIL
+                </label>
+
+                <div class="input-box">
+
+                    <span>
+                        @
+                    </span>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                    >
+
+                </div>
+
+
+                <div
+                    id="emailError"
+                    class="error"
+                ></div>
+
+            </div>
+
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    PASSWORD
+                </label>
+
+                <div class="input-box">
+
+                    <span>
+                        ◉
+                    </span>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Minimum 8 characters"
+                        autocomplete="new-password"
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        id="showPassword"
+                    >
+                        SHOW
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="passwordError"
+                    class="error"
+                ></div>
+
+            </div>
+
+
+
+            <!-- CONFIRM PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="confirmPassword">
+                    CONFIRM PASSWORD
+                </label>
+
+                <div class="input-box">
+
+                    <span>
+                        ✓
+                    </span>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Re-enter your password"
+                        autocomplete="new-password"
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        id="showConfirmPassword"
+                    >
+                        SHOW
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="confirmPasswordError"
+                    class="error"
+                ></div>
+
+            </div>
+
+
+
+            <!-- BUTTON -->
+
+            <button
+                type="submit"
+                class="register-button"
+            >
+
+                <span>
+                    CREATE ACCOUNT
+                </span>
+
+                <b>
+                    →
+                </b>
+
+            </button>
+
+
+        </form>
+
+
+
+        <!-- LOGIN -->
+
+        <div class="login-link">
+
+            <span>
+                Already have an account?
+            </span>
+
+            <a href="login.html">
+                SIGN IN →
+            </a>
 
         </div>
 
 
-        <div class="form-group">
+        <!-- SECURITY -->
 
-            <label for="email">
-                Email
-            </label>
+        <div class="secure">
 
-            <input
-                type="email"
-                id="email"
-                autocomplete="email"
-                placeholder="you@example.com"
-                required>
+            <span></span>
 
-            <div class="form-error"
-                 id="emailError">
-            </div>
+            YOUR DATA IS SECURE
 
         </div>
 
 
-        <div class="form-group">
+    </section>
 
-            <label for="password">
-                Password
-            </label>
-
-            <input
-                type="password"
-                id="password"
-                autocomplete="new-password"
-                placeholder="Minimum 8 characters"
-                required>
-
-            <div class="form-error"
-                 id="passwordError">
-            </div>
-
-        </div>
+</main>
 
 
-        <div class="form-group">
 
-            <label for="confirmPassword">
-                Confirm Password
-            </label>
+<footer>
 
-            <input
-                type="password"
-                id="confirmPassword"
-                autocomplete="new-password"
-                placeholder="Re-enter your password"
-                required>
+    <span>
+        CORELY © 2026
+    </span>
 
-            <div class="form-error"
-                 id="confirmPasswordError">
-            </div>
+    <span>
+        ADAPTIVE STUDENT INTELLIGENCE
+    </span>
 
-        </div>
+</footer>
 
 
-        <button
-            type="submit"
-            class="auth-button">
 
-            Create Account
-
-        </button>
-
-    </form>
-
-
-    <div class="auth-footer">
-
-        Already have an account?
-
-        <a href="login.html">
-            Sign in
-        </a>
-
-    </div>
-
-
-    <div class="demo-note">
-
-        Your information will be securely
-        connected to the Corely backend.
-
-    </div>
-
-</div>
-
-
-<script src="js/api.js"></script>
-<script src="js/auth.js"></script>
+<script src="js/register.js"></script>
 
 </body>
 

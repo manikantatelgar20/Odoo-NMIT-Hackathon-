@@ -1,0 +1,1173 @@
+/* =====================================================
+   CORELY REGISTER
+   PURPLE + CYAN + PINK
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    min-height: 100%;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 70% 15%,
+            rgba(139,92,246,.13),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 15% 80%,
+            rgba(56,189,248,.08),
+            transparent 25%
+        ),
+
+        #070711;
+
+    color: #f8fafc;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    overflow-x: hidden;
+}
+
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+button,
+input {
+    font-family: inherit;
+}
+
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.grid {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -5;
+
+    opacity: .25;
+
+    background-image:
+
+        linear-gradient(
+            rgba(139,92,246,.07) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(56,189,248,.06) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    animation:
+        gridMove
+        20s
+        linear
+        infinite;
+}
+
+
+@keyframes gridMove {
+
+    to {
+
+        background-position:
+            55px 55px;
+
+    }
+
+}
+
+
+.glow {
+
+    position: fixed;
+
+    border-radius: 50%;
+
+    filter: blur(110px);
+
+    pointer-events: none;
+
+    z-index: -3;
+}
+
+
+.glow.purple {
+
+    width: 500px;
+
+    height: 500px;
+
+    background: #8b5cf6;
+
+    opacity: .15;
+
+    top: -230px;
+
+    left: 20%;
+}
+
+
+.glow.blue {
+
+    width: 420px;
+
+    height: 420px;
+
+    background: #38bdf8;
+
+    opacity: .08;
+
+    bottom: -180px;
+
+    right: -100px;
+}
+
+
+.glow.pink {
+
+    width: 320px;
+
+    height: 320px;
+
+    background: #f472b6;
+
+    opacity: .09;
+
+    left: -120px;
+
+    top: 45%;
+}
+
+
+#particles {
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header {
+
+    height: 78px;
+
+    padding: 0 6%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.08);
+
+    background:
+        rgba(7,7,17,.78);
+
+    backdrop-filter:
+        blur(20px);
+}
+
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.brand-icon {
+
+    width: 38px;
+
+    height: 38px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b5cf6,
+            #38bdf8
+        );
+
+    font-weight: 900;
+
+    box-shadow:
+        0 0 30px
+        rgba(139,92,246,.35);
+}
+
+
+.brand strong {
+
+    display: block;
+
+    font-size: 14px;
+
+    letter-spacing: 3px;
+}
+
+
+.brand small {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: #6e7084;
+
+    font-size: 6px;
+
+    letter-spacing: 2px;
+}
+
+
+.back {
+
+    color: #77798b;
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+
+    transition: .25s;
+}
+
+
+.back:hover {
+
+    color: #38bdf8;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.register-wrapper {
+
+    width:
+        min(
+            1250px,
+            90%
+        );
+
+    min-height:
+        calc(
+            100vh - 145px
+        );
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        480px;
+
+    align-items: center;
+
+    gap: 90px;
+
+    padding: 60px 0;
+}
+
+
+/* =====================================================
+   LEFT INTRO
+===================================================== */
+
+.register-intro {
+
+    animation:
+        introIn
+        .8s
+        ease
+        both;
+}
+
+
+@keyframes introIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateX(-35px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateX(0);
+
+    }
+}
+
+
+.intro-tag {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: #38bdf8;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+}
+
+
+.intro-tag span {
+
+    width: 32px;
+
+    height: 1px;
+
+    background: #38bdf8;
+}
+
+
+.register-intro h1 {
+
+    margin-top: 25px;
+
+    font-size:
+        clamp(
+            55px,
+            7vw,
+            100px
+        );
+
+    line-height: .87;
+
+    letter-spacing: -6px;
+
+    font-weight: 900;
+}
+
+
+.register-intro h1 span {
+
+    color: transparent;
+
+    -webkit-text-stroke:
+        1px
+        #a78bfa;
+
+    transition: .4s;
+}
+
+
+.register-intro h1 span:hover {
+
+    color: #f472b6;
+
+    -webkit-text-stroke: 0;
+
+    text-shadow:
+        0 0 40px
+        rgba(244,114,182,.35);
+}
+
+
+.register-intro > p {
+
+    max-width: 520px;
+
+    margin-top: 30px;
+
+    color: #77798b;
+
+    font-size: 11px;
+
+    line-height: 1.9;
+}
+
+
+/* =====================================================
+   BENEFITS
+===================================================== */
+
+.benefits {
+
+    margin-top: 40px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+
+.benefit {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 12px;
+
+    width: 360px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    background:
+        rgba(255,255,255,.018);
+
+    transition: .3s;
+}
+
+
+.benefit:hover {
+
+    transform:
+        translateX(8px);
+
+    border-color:
+        rgba(139,92,246,.35);
+
+    background:
+        rgba(139,92,246,.04);
+}
+
+
+.benefit-icon {
+
+    width: 38px;
+
+    height: 38px;
+
+    display: grid;
+
+    place-items: center;
+
+    color: #c4b5fd;
+
+    background:
+        rgba(139,92,246,.13);
+
+    border:
+        1px solid
+        rgba(139,92,246,.25);
+
+    font-size: 16px;
+}
+
+
+.blue-icon {
+
+    color: #38bdf8;
+
+    background:
+        rgba(56,189,248,.08);
+
+    border-color:
+        rgba(56,189,248,.2);
+}
+
+
+.pink-icon {
+
+    color: #f472b6;
+
+    background:
+        rgba(244,114,182,.08);
+
+    border-color:
+        rgba(244,114,182,.2);
+}
+
+
+.benefit strong {
+
+    display: block;
+
+    font-size: 8px;
+
+    letter-spacing: 1px;
+}
+
+
+.benefit span {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: #626577;
+
+    font-size: 7px;
+}
+
+
+/* =====================================================
+   REGISTER CARD
+===================================================== */
+
+.register-card {
+
+    position: relative;
+
+    padding: 32px;
+
+    background:
+        rgba(14,14,28,.86);
+
+    border:
+        1px solid
+        rgba(139,92,246,.25);
+
+    box-shadow:
+        0 30px 100px
+        rgba(0,0,0,.4);
+
+    backdrop-filter:
+        blur(20px);
+
+    animation:
+        cardIn
+        .8s
+        .15s
+        ease
+        both;
+}
+
+
+@keyframes cardIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(30px)
+            scale(.97);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+}
+
+
+.register-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: -1px;
+
+    left: 12%;
+
+    width: 76%;
+
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #8b5cf6,
+            #38bdf8,
+            #f472b6,
+            transparent
+        );
+
+    box-shadow:
+        0 0 20px
+        rgba(139,92,246,.5);
+}
+
+
+.card-top-glow {
+
+    position: absolute;
+
+    width: 170px;
+
+    height: 170px;
+
+    right: -80px;
+
+    top: -80px;
+
+    border-radius: 50%;
+
+    background: #8b5cf6;
+
+    opacity: .07;
+
+    filter: blur(50px);
+}
+
+
+/* =====================================================
+   CARD HEADER
+===================================================== */
+
+.card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.register-icon {
+
+    width: 38px;
+
+    height: 38px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b5cf6,
+            #38bdf8
+        );
+
+    font-weight: 900;
+
+    box-shadow:
+        0 0 25px
+        rgba(139,92,246,.25);
+}
+
+
+.card-header span {
+
+    display: block;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+}
+
+
+.card-header small {
+
+    display: block;
+
+    margin-top: 4px;
+
+    color: #66697b;
+
+    font-size: 6px;
+
+    letter-spacing: 1px;
+}
+
+
+.register-card h2 {
+
+    margin-top: 25px;
+
+    font-size: 27px;
+
+    letter-spacing: -1px;
+}
+
+
+.subtitle {
+
+    margin-top: 7px;
+
+    color: #696c7e;
+
+    font-size: 9px;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+form {
+
+    margin-top: 25px;
+}
+
+
+.form-group {
+
+    margin-bottom: 14px;
+}
+
+
+label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #9799a9;
+
+    font-size: 7px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+
+.input-box {
+
+    display: flex;
+
+    align-items: center;
+
+    height: 43px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    background:
+        rgba(255,255,255,.025);
+
+    transition: .3s;
+}
+
+
+.input-box:focus-within {
+
+    border-color:
+        #8b5cf6;
+
+    box-shadow:
+        0 0 22px
+        rgba(139,92,246,.1);
+}
+
+
+.input-box > span {
+
+    width: 40px;
+
+    text-align: center;
+
+    color: #8b5cf6;
+
+    font-size: 12px;
+}
+
+
+.input-box input {
+
+    flex: 1;
+
+    height: 100%;
+
+    min-width: 0;
+
+    border: 0;
+
+    outline: 0;
+
+    color: white;
+
+    background: transparent;
+
+    font-size: 9px;
+}
+
+
+.input-box input::placeholder {
+
+    color: #4f5263;
+}
+
+
+.show-password {
+
+    padding:
+        5px 9px;
+
+    border: 0;
+
+    color: #38bdf8;
+
+    background: transparent;
+
+    font-size: 6px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error {
+
+    min-height: 12px;
+
+    margin-top: 4px;
+
+    color: #f472b6;
+
+    font-size: 7px;
+}
+
+
+/* =====================================================
+   REGISTER BUTTON
+===================================================== */
+
+.register-button {
+
+    width: 100%;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+        0 17px;
+
+    border: 0;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            100deg,
+            #8b5cf6,
+            #6366f1,
+            #38bdf8
+        );
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.3px;
+
+    box-shadow:
+        0 10px 35px
+        rgba(99,102,241,.2);
+
+    transition: .3s;
+}
+
+
+.register-button:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 15px 45px
+        rgba(139,92,246,.35);
+}
+
+
+.register-button b {
+
+    font-size: 15px;
+}
+
+
+/* =====================================================
+   LOGIN LINK
+===================================================== */
+
+.login-link {
+
+    margin-top: 20px;
+
+    text-align: center;
+
+    color: #66697a;
+
+    font-size: 8px;
+}
+
+
+.login-link a {
+
+    display: block;
+
+    margin-top: 8px;
+
+    color: #38bdf8;
+
+    font-size: 7px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    transition: .25s;
+}
+
+
+.login-link a:hover {
+
+    color: #f472b6;
+}
+
+
+/* =====================================================
+   SECURE
+===================================================== */
+
+.secure {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 18px;
+
+    color: #4f5260;
+
+    font-size: 6px;
+
+    letter-spacing: 1px;
+}
+
+
+.secure span {
+
+    width: 5px;
+
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #38bdf8;
+
+    box-shadow:
+        0 0 10px
+        #38bdf8;
+
+    animation:
+        pulse
+        1.5s
+        infinite;
+}
+
+
+@keyframes pulse {
+
+    50% {
+
+        opacity: .25;
+
+    }
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+
+    width:
+        min(
+            1250px,
+            90%
+        );
+
+    margin: auto;
+
+    min-height: 67px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.08);
+
+    color: #4f5261;
+
+    font-size: 6px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:900px) {
+
+    .register-wrapper {
+
+        grid-template-columns: 1fr;
+
+        gap: 50px;
+
+        padding: 60px 0;
+    }
+
+
+    .register-intro {
+
+        text-align: center;
+    }
+
+
+    .intro-tag {
+
+        justify-content: center;
+    }
+
+
+    .register-intro > p {
+
+        margin-left: auto;
+
+        margin-right: auto;
+    }
+
+
+    .benefits {
+
+        align-items: center;
+    }
+
+}
+
+
+@media(max-width:550px) {
+
+    header {
+
+        padding:
+            0 5%;
+    }
+
+
+    .register-wrapper {
+
+        width: 92%;
+    }
+
+
+    .register-intro h1 {
+
+        font-size: 54px;
+
+        letter-spacing: -4px;
+    }
+
+
+    .benefit {
+
+        width: 100%;
+    }
+
+
+    .register-card {
+
+        padding: 23px 18px;
+    }
+
+
+    footer {
+
+        width: 92%;
+
+        padding: 20px 0;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 10px;
+    }
+
+}

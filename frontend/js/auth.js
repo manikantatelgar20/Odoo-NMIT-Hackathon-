@@ -1,3 +1,7 @@
+// ========================================
+// ERROR FUNCTIONS
+// ========================================
+
 function showError(id, message) {
 
     const element =
@@ -24,6 +28,10 @@ function clearError(id) {
 }
 
 
+// ========================================
+// EMAIL VALIDATION
+// ========================================
+
 function validEmail(email) {
 
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -32,9 +40,9 @@ function validEmail(email) {
 }
 
 
-/* =========================
-   LOGIN
-========================= */
+// ========================================
+// LOGIN
+// ========================================
 
 const loginForm =
     document.getElementById("loginForm");
@@ -68,6 +76,7 @@ if (loginForm) {
             let valid = true;
 
 
+            // Email
             if (!email) {
 
                 showError(
@@ -90,6 +99,7 @@ if (loginForm) {
             }
 
 
+            // Password
             if (!password) {
 
                 showError(
@@ -102,84 +112,63 @@ if (loginForm) {
             }
 
 
-            if (!valid) return;
+            if (!valid) {
+                return;
+            }
 
 
-            const submitButton =
+            // --------------------------------
+            // Send login request
+            // --------------------------------
+
+            const button =
                 loginForm.querySelector(
                     "button[type='submit']"
                 );
 
 
-            const originalText =
-                submitButton.textContent;
-
-
             try {
 
-                submitButton.disabled = true;
+                if (button) {
 
-                submitButton.textContent =
-                    "Signing in...";
+                    button.disabled = true;
 
-
-                const response =
-                    await apiRequest(
-                        "/auth/login",
-                        {
-                            method: "POST",
-
-                            body: JSON.stringify({
-
-                                email,
-                                password
-
-                            })
-                        }
-                    );
-
-
-                if (response.token) {
-
-                    localStorage.setItem(
-                        "corely_token",
-                        response.token
-                    );
+                    button.textContent =
+                        "Signing in...";
 
                 }
 
 
-                if (response.user) {
-
-                    localStorage.setItem(
-                        "corely_user",
-                        JSON.stringify(
-                            response.user
-                        )
-                    );
-
-                }
+                await loginUser(
+                    email,
+                    password
+                );
 
 
+                // Login successful
                 window.location.href =
                     "dashboard.html";
-
 
             }
             catch (error) {
 
                 showError(
                     "passwordError",
-                    error.message
+                    error.message ||
+                    "Login failed."
                 );
 
             }
             finally {
 
-                submitButton.disabled = false;
+                if (button) {
 
-                submitButton.textContent =
-                    originalText;
+                    button.disabled = false;
+
+                    button.textContent =
+                        "Sign In";
+
+                }
 
             }
 
@@ -189,9 +178,9 @@ if (loginForm) {
 }
 
 
-/* =========================
-   REGISTER
-========================= */
+// ========================================
+// REGISTER
+// ========================================
 
 const registerForm =
     document.getElementById(
@@ -238,18 +227,18 @@ if (registerForm) {
                 ).value;
 
 
-            [
-                "nameError",
-                "studentIdError",
-                "emailError",
-                "passwordError",
-                "confirmPasswordError"
-            ].forEach(clearError);
+            // Clear previous errors
+            clearError("nameError");
+            clearError("studentIdError");
+            clearError("emailError");
+            clearError("passwordError");
+            clearError("confirmPasswordError");
 
 
             let valid = true;
 
 
+            // Name
             if (name.length < 2) {
 
                 showError(
@@ -262,6 +251,7 @@ if (registerForm) {
             }
 
 
+            // Student ID
             if (studentId.length < 3) {
 
                 showError(
@@ -274,6 +264,7 @@ if (registerForm) {
             }
 
 
+            // Email
             if (!validEmail(email)) {
 
                 showError(
@@ -286,6 +277,7 @@ if (registerForm) {
             }
 
 
+            // Password
             if (password.length < 8) {
 
                 showError(
@@ -298,6 +290,7 @@ if (registerForm) {
             }
 
 
+            // Confirm password
             if (password !== confirmPassword) {
 
                 showError(
@@ -310,95 +303,66 @@ if (registerForm) {
             }
 
 
-            if (!valid) return;
+            if (!valid) {
+                return;
+            }
 
 
-            const submitButton =
+            const button =
                 registerForm.querySelector(
                     "button[type='submit']"
                 );
 
 
-            const originalText =
-                submitButton.textContent;
-
-
             try {
 
-                submitButton.disabled = true;
+                if (button) {
 
-                submitButton.textContent =
-                    "Creating account...";
+                    button.disabled = true;
 
-
-                const response =
-                    await apiRequest(
-                        "/auth/register",
-                        {
-                            method: "POST",
-
-                            body: JSON.stringify({
-
-                                name,
-                                studentId,
-                                email,
-                                password
-
-                            })
-                        }
-                    );
-
-
-                if (response.token) {
-
-                    localStorage.setItem(
-                        "corely_token",
-                        response.token
-                    );
+                    button.textContent =
+                        "Creating account...";
 
                 }
 
 
-                if (response.user) {
-
-                    localStorage.setItem(
-                        "corely_user",
-                        JSON.stringify(
-                            response.user
-                        )
-                    );
-
-                }
-
-
-                alert(
-                    response.message ||
-                    "Account created successfully."
+                await registerUser(
+                    name,
+                    studentId,
+                    email,
+                    password
                 );
 
 
-                registerForm.reset();
+                alert(
+                    "Corely account created successfully!"
+                );
 
 
+                // Go to login
                 window.location.href =
                     "login.html";
-
 
             }
             catch (error) {
 
                 showError(
                     "emailError",
-                    error.message
+                    error.message ||
+                    "Registration failed."
                 );
 
             }
             finally {
 
-                submitButton.disabled = false;
+                if (button) {
 
-                submitButton.textContent =
-                    originalText;
+                    button.disabled = false;
+
+                    button.textContent =
+                        "Create Account";
+
+                }
 
             }
 
@@ -408,9 +372,9 @@ if (registerForm) {
 }
 
 
-/* =========================
-   MOBILE MENU
-========================= */
+// ========================================
+// MOBILE MENU
+// ========================================
 
 const mobileMenuBtn =
     document.getElementById(
@@ -424,7 +388,10 @@ const mobileMenu =
     );
 
 
-if (mobileMenuBtn && mobileMenu) {
+if (
+    mobileMenuBtn &&
+    mobileMenu
+) {
 
     mobileMenuBtn.addEventListener(
         "click",

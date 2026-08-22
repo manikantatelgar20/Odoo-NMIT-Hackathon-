@@ -8,69 +8,69 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <meta name="description"
-          content="Corely - Adaptive Student Life Platform">
-
     <title>Corely | Adaptive Student Life</title>
 
     <link rel="stylesheet"
-          href="css/style.css">
+          href="css/landing.css">
 
 </head>
 
 <body>
 
-<header class="navbar">
+<!-- =========================
+     NAVBAR
+========================= -->
 
-    <a href="index.html" class="brand">
+<header class="landing-nav">
 
-        <div class="brand-logo">C</div>
+    <a href="index.html"
+       class="brand">
+
+        <div class="brand-icon">
+            C
+        </div>
 
         <div>
-            <strong>Corely</strong>
-            <span>ADAPTIVE</span>
+            <strong>
+                Corely
+            </strong>
+
+            <span>
+                ADAPTIVE
+            </span>
         </div>
 
     </a>
 
 
-    <nav class="desktop-nav">
+    <nav>
 
-        <a href="#features">Features</a>
+        <a href="#features">
+            Features
+        </a>
 
-        <a href="#how-it-works">How it works</a>
+        <a href="#how">
+            How it works
+        </a>
 
         <a href="login.html"
            class="nav-login">
-            Sign In
+            Sign in
+        </a>
+
+        <a href="register.html"
+           class="nav-register">
+            Get Started
         </a>
 
     </nav>
 
-
-    <button class="mobile-menu-btn"
-            id="mobileMenuBtn"
-            aria-label="Open menu">
-        ☰
-    </button>
-
 </header>
 
 
-<div class="mobile-menu" id="mobileMenu">
-
-    <a href="#features">Features</a>
-
-    <a href="#how-it-works">
-        How it works
-    </a>
-
-    <a href="login.html">
-        Sign In
-    </a>
-
-</div>
-
+<!-- =========================
+     HERO
+========================= -->
 
 <main>
 
@@ -78,165 +78,234 @@
 
     <div class="hero-content">
 
-        <div class="eyebrow">
-            ✦ ADAPTIVE STUDENT LIFE PLATFORM
+        <div class="hero-badge">
+            ✦ AI-POWERED STUDENT LIFE
         </div>
 
+
         <h1>
-            Your day changes.
-            <span>Corely adapts.</span>
+
+            Your student life.
+
+            <span>
+                Adaptively organized.
+            </span>
+
         </h1>
 
+
         <p>
-            Corely helps students organize classes,
-            assignments, exams, attendance and
-            personal activities — then adapts the
-            remaining plan when life gets in the way.
+
+            Corely brings your schedule, tasks,
+            academics and attendance together —
+            then uses AI to help you make better
+            decisions every day.
+
         </p>
 
 
-        <div class="hero-actions">
+        <div class="hero-buttons">
 
             <a href="register.html"
-               class="btn btn-primary">
-                Get Started →
+               class="primary-btn">
+
+                Start with Corely
+                →
+
             </a>
 
+
             <a href="#features"
-               class="btn btn-secondary">
-                Explore Corely
+               class="secondary-btn">
+
+                Explore features
+
             </a>
 
         </div>
 
 
-        <div class="hero-points">
+        <div class="hero-note">
 
-            <span>✓ Smart scheduling</span>
-
-            <span>✓ Adaptive planning</span>
-
-            <span>✓ Student focused</span>
+            ✓ Free to get started
+            &nbsp;&nbsp;
+            ✓ Built for students
+            &nbsp;&nbsp;
+            ✓ AI-assisted planning
 
         </div>
 
     </div>
 
 
-    <div class="hero-dashboard">
+    <!-- =========================
+         HERO DASHBOARD PREVIEW
+    ========================= -->
 
-        <div class="dashboard-window">
+    <div class="hero-preview">
 
-            <div class="window-top">
+        <div class="preview-window">
 
-                <div>
-                    <small>TODAY • CORELY</small>
+            <div class="preview-top">
 
-                    <h3>
-                        Good morning 👋
-                    </h3>
-                </div>
+                <div class="preview-dots">
 
-                <div class="avatar">
-                    C
-                </div>
-
-            </div>
-
-
-            <div class="flow-card">
-
-                <div class="flow-header">
-
-                    <span>
-                        Today's flow
-                    </span>
-
-                    <strong>
-                        82%
-                    </strong>
+                    <i></i>
+                    <i></i>
+                    <i></i>
 
                 </div>
 
-                <div class="progress-bar">
-                    <div style="width:82%"></div>
-                </div>
-
-            </div>
-
-
-            <div class="mini-task">
-
-                <div class="task-symbol blue">
-                    🎓
-                </div>
-
-                <div>
-                    <strong>Mathematics</strong>
-                    <small>
-                        10:00 AM • Room B-204
-                    </small>
-                </div>
-
-                <span class="status-now">
-                    NOW
+                <span>
+                    Corely Dashboard
                 </span>
 
             </div>
 
 
-            <div class="mini-task">
+            <div class="preview-body">
 
-                <div class="task-symbol red">
-                    !
+                <div class="preview-sidebar">
+
+                    <div class="mini-logo">
+                        C
+                    </div>
+
+                    <div class="mini-nav active">
+                        Dashboard
+                    </div>
+
+                    <div class="mini-nav">
+                        Schedule
+                    </div>
+
+                    <div class="mini-nav">
+                        Tasks
+                    </div>
+
+                    <div class="mini-nav">
+                        Academics
+                    </div>
+
                 </div>
 
-                <div>
-                    <strong>DSA Assignment</strong>
-                    <small>
-                        Due today • 6:00 PM
-                    </small>
-                </div>
 
-                <span class="status-high">
-                    HIGH
-                </span>
+                <div class="preview-main">
 
-            </div>
+                    <div class="preview-heading">
 
+                        <small>
+                            GOOD MORNING
+                        </small>
 
-            <div class="mini-task">
+                        <h3>
+                            Your day at a glance 👋
+                        </h3>
 
-                <div class="task-symbol purple">
-                    📖
-                </div>
-
-                <div>
-                    <strong>Java Revision</strong>
-                    <small>
-                        3:00 PM • 60 min
-                    </small>
-                </div>
-
-            </div>
+                    </div>
 
 
-            <div class="ai-insight">
+                    <div class="preview-stats">
 
-                <div class="ai-icon">
-                    ✦
-                </div>
+                        <div class="mini-card purple">
 
-                <div>
+                            <small>
+                                TODAY'S FLOW
+                            </small>
 
-                    <strong>
-                        Corely Intelligence
-                    </strong>
+                            <strong>
+                                82%
+                            </strong>
 
-                    <p>
-                        Your DSA assignment has
-                        the highest urgency today.
-                    </p>
+                            <span>
+                                Well planned
+                            </span>
+
+                        </div>
+
+
+                        <div class="mini-card blue">
+
+                            <small>
+                                PENDING TASKS
+                            </small>
+
+                            <strong>
+                                4
+                            </strong>
+
+                            <span>
+                                2 high priority
+                            </span>
+
+                        </div>
+
+
+                        <div class="mini-card pink">
+
+                            <small>
+                                ATTENDANCE
+                            </small>
+
+                            <strong>
+                                86%
+                            </strong>
+
+                            <span>
+                                Current average
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="preview-bottom">
+
+                        <div class="schedule-preview">
+
+                            <strong>
+                                Today's Schedule
+                            </strong>
+
+                            <div>
+                                <b>10:00</b>
+                                Mathematics
+                            </div>
+
+                            <div>
+                                <b>13:30</b>
+                                DSA Assignment
+                            </div>
+
+                            <div>
+                                <b>15:30</b>
+                                Java Revision
+                            </div>
+
+                        </div>
+
+
+                        <div class="ai-preview">
+
+                            <div class="ai-symbol">
+                                ✦
+                            </div>
+
+                            <strong>
+                                Corely AI
+                            </strong>
+
+                            <p>
+                                Your DSA deadline is
+                                approaching. Consider
+                                moving Java revision
+                                to tomorrow.
+                            </p>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -249,20 +318,28 @@
 </section>
 
 
+
+<!-- =========================
+     FEATURES
+========================= -->
+
 <section id="features"
-         class="section">
+         class="features">
 
     <div class="section-heading">
 
-        <span>CORELY FEATURES</span>
+        <span>
+            EVERYTHING CONNECTED
+        </span>
 
         <h2>
-            One place for your entire day.
+            One place for your
+            <strong>entire student life.</strong>
         </h2>
 
         <p>
-            Designed around the reality that
-            student schedules constantly change.
+            Corely connects the things students
+            usually manage separately.
         </p>
 
     </div>
@@ -270,7 +347,8 @@
 
     <div class="feature-grid">
 
-        <article class="feature-card">
+
+        <div class="feature-card purple-card">
 
             <div class="feature-icon">
                 📅
@@ -281,17 +359,91 @@
             </h3>
 
             <p>
-                Organize classes, study sessions,
-                tasks and activities in one place.
+                Organize classes, study sessions
+                and activities in one adaptive
+                schedule.
             </p>
 
-        </article>
+        </div>
 
 
-        <article class="feature-card">
+        <div class="feature-card blue-card">
+
+            <div class="feature-icon">
+                ✓
+            </div>
+
+            <h3>
+                Intelligent Tasks
+            </h3>
+
+            <p>
+                Track assignments and deadlines
+                while Corely highlights what
+                matters most.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card pink-card">
+
+            <div class="feature-icon">
+                🎓
+            </div>
+
+            <h3>
+                Academic Insights
+            </h3>
+
+            <p>
+                Monitor marks, grades and academic
+                progress from a single dashboard.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card green-card">
+
+            <div class="feature-icon">
+                📊
+            </div>
+
+            <h3>
+                Attendance
+            </h3>
+
+            <p>
+                Understand your attendance and
+                identify subjects that need attention.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card orange-card">
 
             <div class="feature-icon">
                 ✦
+            </div>
+
+            <h3>
+                Corely AI
+            </h3>
+
+            <p>
+                Get personalized recommendations
+                based on your student data.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card purple-card">
+
+            <div class="feature-icon">
+                ⚡
             </div>
 
             <h3>
@@ -299,177 +451,166 @@
             </h3>
 
             <p>
-                When something unexpected happens,
-                Corely can reorganize the remaining day.
+                When something changes, your
+                planning can adapt with it.
             </p>
 
-        </article>
-
-
-        <article class="feature-card">
-
-            <div class="feature-icon">
-                🎓
-            </div>
-
-            <h3>
-                Academic Tracking
-            </h3>
-
-            <p>
-                Keep track of attendance, exams,
-                assignments and academic priorities.
-            </p>
-
-        </article>
-
-
-        <article class="feature-card">
-
-            <div class="feature-icon">
-                ⏱
-            </div>
-
-            <h3>
-                Smart Priorities
-            </h3>
-
-            <p>
-                Identify what needs attention first
-                using deadlines and importance.
-            </p>
-
-        </article>
+        </div>
 
     </div>
 
 </section>
 
 
-<section id="how-it-works"
-         class="section how-section">
+
+<!-- =========================
+     HOW IT WORKS
+========================= -->
+
+<section id="how"
+         class="how-section">
 
     <div class="section-heading">
 
-        <span>CORELY FLOW</span>
+        <span>
+            HOW CORELY WORKS
+        </span>
 
         <h2>
-            Plan → Disrupt → Adapt
+            Plan less.
+            <strong>Achieve more.</strong>
         </h2>
-
-        <p>
-            Corely is designed to respond to
-            real-world changes instead of
-            forcing students to follow a rigid plan.
-        </p>
 
     </div>
 
 
-    <div class="steps-grid">
+    <div class="steps">
 
-        <article class="step-card">
+        <div class="step">
 
             <div class="step-number">
                 01
             </div>
 
-            <h3>Plan</h3>
+            <h3>
+                Add your data
+            </h3>
 
             <p>
-                Add your classes, assignments,
-                exams and daily activities.
+                Enter your schedule, tasks,
+                academics and attendance.
             </p>
 
-        </article>
+        </div>
 
 
-        <div class="step-arrow">→</div>
+        <div class="step-line"></div>
 
 
-        <article class="step-card">
+        <div class="step">
 
             <div class="step-number">
                 02
             </div>
 
-            <h3>Disrupt</h3>
+            <h3>
+                Corely understands
+            </h3>
 
             <p>
-                Something unexpected changes
-                your original schedule.
+                Your information becomes one
+                connected student profile.
             </p>
 
-        </article>
+        </div>
 
 
-        <div class="step-arrow">→</div>
+        <div class="step-line"></div>
 
 
-        <article class="step-card">
+        <div class="step">
 
             <div class="step-number">
                 03
             </div>
 
-            <h3>Adapt</h3>
+            <h3>
+                AI adapts
+            </h3>
 
             <p>
-                Corely recalculates the remaining
-                plan around your priorities.
+                Corely identifies priorities and
+                suggests better decisions.
             </p>
 
-        </article>
+        </div>
 
     </div>
 
 </section>
 
 
-<section class="cta-section">
+
+<!-- =========================
+     CTA
+========================= -->
+
+<section class="cta">
 
     <div>
 
-        <span>READY TO TAKE CONTROL?</span>
+        <div class="cta-sparkle">
+            ✦
+        </div>
 
         <h2>
-            Build a day that can adapt.
+            Make your student life
+            <span>
+                work for you.
+            </span>
         </h2>
 
-    </div>
+        <p>
+            Start building your adaptive student
+            life with Corely.
+        </p>
 
-    <a href="register.html"
-       class="btn btn-primary">
-        Create your Corely account →
-    </a>
+        <a href="register.html"
+           class="primary-btn">
+
+            Create your Corely account
+            →
+
+        </a>
+
+    </div>
 
 </section>
 
 </main>
 
 
-<footer class="footer">
 
-    <div class="brand">
+<!-- =========================
+     FOOTER
+========================= -->
 
-        <div class="brand-logo">C</div>
+<footer>
 
-        <div>
-            <strong>Corely</strong>
-            <span>ADAPTIVE</span>
-        </div>
+    <strong>
+        Corely
+    </strong>
 
-    </div>
+    <span>
+        Adaptive Student Life
+    </span>
 
-    <p>
-        Adaptive student life platform.
-    </p>
+    <span>
+        © 2026 Corely
+    </span>
 
 </footer>
 
-
-<script src="js/api.js"></script>
-<script src="js/auth.js"></script>
 
 </body>
 

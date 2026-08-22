@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Corely | Profile</title>
+
+    <link rel="stylesheet"
+          href="css/corely.css">
+
+    <style>
+
+        .profile-layout {
+            display:grid;
+            grid-template-columns:280px 1fr;
+            gap:20px;
+        }
+
+        .profile-card {
+            text-align:center;
+            padding:30px 20px;
+            border-radius:22px;
+            border:1px solid #e5e6ef;
+            background:white;
+            box-shadow:0 15px 40px rgba(50,55,100,.07);
+        }
+
+        .big-avatar {
+            width:90px;
+            height:90px;
+            margin:0 auto 15px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            border-radius:28px;
+            color:white;
+            font-size:36px;
+            font-weight:900;
+            background:linear-gradient(
+                135deg,
+                #7566f9,
+                #ed82c5,
+                #55a8ff
+            );
+            box-shadow:
+                0 15px 35px
+                rgba(117,102,249,.25);
+        }
+
+        .profile-card h2 {
+            margin:0;
+            color:#252941;
+            font-size:18px;
+        }
+
+        .profile-card p {
+            margin:6px 0;
+            color:#858ba3;
+            font-size:10px;
+        }
+
+        .profile-badge {
+            display:inline-block;
+            margin-top:10px;
+            padding:7px 13px;
+            border-radius:20px;
+            color:#6251dc;
+            background:#eeeaff;
+            font-size:9px;
+            font-weight:800;
+        }
+
+        .profile-info {
+            padding:25px;
+            border-radius:22px;
+            border:1px solid #e5e6ef;
+            background:white;
+            box-shadow:0 15px 40px rgba(50,55,100,.07);
+        }
+
+        .info-grid {
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:18px;
+        }
+
+        .info-box {
+            padding:17px;
+            border-radius:14px;
+            background:#f8f9fd;
+        }
+
+        .info-box small {
+            display:block;
+            color:#858ba3;
+            font-size:8px;
+            font-weight:800;
+            letter-spacing:1px;
+        }
+
+        .info-box strong {
+            display:block;
+            margin-top:7px;
+            color:#252941;
+            font-size:12px;
+            word-break:break-word;
+        }
+
+        .profile-actions {
+            display:flex;
+            gap:12px;
+            margin-top:22px;
+        }
+
+        .logout-button {
+            border:none;
+            padding:12px 18px;
+            border-radius:12px;
+            color:#c75367;
+            background:#fff0f3;
+            font-family:inherit;
+            font-size:10px;
+            font-weight:800;
+            cursor:pointer;
+            transition:.25s;
+        }
+
+        .logout-button:hover {
+            transform:translateY(-3px);
+            background:#ffe2e8;
+        }
+
+        .profile-ai {
+            margin-top:20px;
+            padding:20px;
+            border-radius:20px;
+            border:1px solid #e2dcff;
+            background:linear-gradient(
+                120deg,
+                #f0edff,
+                #fff0fa,
+                #eef8ff
+            );
+        }
+
+        @media(max-width:800px) {
+
+            .profile-layout {
+                grid-template-columns:1fr;
+            }
+
+        }
+
+        @media(max-width:600px) {
+
+            .info-grid {
+                grid-template-columns:1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">C</div>
+
+        <div>
+            <div class="logo-name">Corely</div>
+            <span class="logo-tag">ADAPTIVE</span>
+        </div>
+
+    </div>
+
+
+    <nav class="nav">
+
+        <a href="dashboard.html">
+            ◉ Dashboard
+        </a>
+
+        <a href="schedule.html">
+            ▣ My Schedule
+        </a>
+
+        <a href="tasks.html">
+            ✓ Tasks
+        </a>
+
+        <a href="academics.html">
+            🎓 Academics
+        </a>
+
+        <a href="attendance.html">
+            📊 Attendance
+        </a>
+
+        <a class="active"
+           href="profile.html">
+            ◯ Profile
+        </a>
+
+        <a href="#"
+           onclick="logout();return false;">
+            ↪ Logout
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-ai">
+
+        <div class="sidebar-ai-icon">✦</div>
+
+        <strong>Corely AI</strong>
+
+        <p>
+            Your adaptive student profile.
+        </p>
+
+    </div>
+
+</aside>
+
+
+
+<main class="main">
+
+
+<header class="header animate">
+
+    <div>
+
+        <p class="header-label">
+            ACCOUNT
+        </p>
+
+        <h1>
+            Your Profile 👤
+        </h1>
+
+        <p>
+            Manage your Corely student information.
+        </p>
+
+    </div>
+
+</header>
+
+
+
+<section class="profile-layout animate">
+
+
+    <div class="profile-card">
+
+        <div class="big-avatar"
+             id="profileAvatar">
+            C
+        </div>
+
+        <h2 id="profileName">
+            Student
+        </h2>
+
+        <p id="profileEmail">
+            Loading...
+        </p>
+
+        <div class="profile-badge">
+            CORELY STUDENT
+        </div>
+
+    </div>
+
+
+
+    <div class="profile-info">
+
+        <div class="card-title">
+
+            <h2>
+                Student Information
+            </h2>
+
+            <span>
+                Account
+            </span>
+
+        </div>
+
+
+        <div class="info-grid">
+
+
+            <div class="info-box">
+
+                <small>
+                    FULL NAME
+                </small>
+
+                <strong id="infoName">
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <small>
+                    STUDENT ID
+                </small>
+
+                <strong id="infoStudentId">
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <small>
+                    EMAIL
+                </small>
+
+                <strong id="infoEmail">
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <small>
+                    ACCOUNT CREATED
+                </small>
+
+                <strong id="infoCreated">
+                    --
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-actions">
+
+            <button
+                class="logout-button"
+                onclick="logout()">
+
+                ↪ Logout
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section class="profile-ai animate delay-1">
+
+    <div style="
+        display:flex;
+        align-items:center;
+        gap:15px;
+    ">
+
+        <div class="ai-academic-icon"
+             style="
+                width:48px;
+                height:48px;
+                flex-shrink:0;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                border-radius:14px;
+                color:white;
+                background:
+                    linear-gradient(
+                        135deg,
+                        #7566f9,
+                        #ed82c5
+                    );
+             ">
+
+            ✦
+
+        </div>
+
+
+        <div>
+
+            <small style="
+                color:#7566f9;
+                font-size:9px;
+                font-weight:800;
+                letter-spacing:1px;
+            ">
+                CORELY
+            </small>
+
+            <h3 style="
+                margin:4px 0;
+                color:#252941;
+                font-size:14px;
+            ">
+                Your data powers your adaptive experience.
+            </h3>
+
+            <p style="
+                margin:0;
+                color:#858ba3;
+                font-size:10px;
+            ">
+                Corely uses your schedule, tasks,
+                academics and attendance to provide
+                smarter recommendations.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<script src="js/auth-guard.js"></script>
+<script src="js/api.js"></script>
+<script src="js/profile.js"></script>
+
+</body>
+
+</html>
