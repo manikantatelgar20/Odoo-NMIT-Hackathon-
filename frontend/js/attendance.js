@@ -1,71 +1,191 @@
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        loadAttendance();
+let attendanceRecords = [];
 
 
-        const form =
-            document.getElementById(
-                "attendanceForm"
+/* =====================================================
+   LOAD ATTENDANCE
+   ===================================================== */
+
+async function loadAttendance() {
+
+    const list =
+        document.getElementById(
+            "attendanceList"
+        );
+
+    try {
+
+        const data =
+            await apiRequest(
+                "/attendance"
             );
 
 
-        const present =
-            document.getElementById(
-                "presentClasses"
-            );
+        attendanceRecords =
+            data.attendance || [];
 
 
-        const total =
-            document.getElementById(
-                "totalClasses"
-            );
-
-
-        function calculatePercentage() {
-
-            const p =
-                Number(present.value) || 0;
-
-            const t =
-                Number(total.value) || 0;
-
-
-            const percentage =
-                t > 0
-                    ? (p / t) * 100
-                    : 0;
-
-
-            document.getElementById(
-                "attendancePercentage"
-            ).value =
-                percentage.toFixed(1) + "%";
-
-        }
-
-
-        present.addEventListener(
-            "input",
-            calculatePercentage
-        );
-
-
-        total.addEventListener(
-            "input",
-            calculatePercentage
-        );
-
-
-        form.addEventListener(
-            "submit",
-            addAttendance
-        );
+        renderAttendance();
 
     }
-);
+    catch (error) {
 
+        console.error(
+            "Attendance loading error:",
+            error
+        );
+
+
+        list.innerHTML = `
+            <div class="empty">
+                Unable to load attendance.
+            </div>
+        `;
+    }
+}
+
+
+/* =====================================================
+   RENDER
+   ===================================================== */
+
+function renderAttendance() {
+
+    const list =
+        document.getElementById(
+            "attendanceList"
+        );
+
+
+    if (
+        !attendanceRecords.length
+    ) {
+
+        list.innerHTML = `
+            <div class="empty">
+                📊
+                <br><br>
+                No attendance records yet.
+                <br>
+                Add your first subject above.
+            </div>
+        `;
+
+        updateSummary();
+
+        return;
+    }
+
+
+    list.innerHTML =
+        attendanceRecords
+            .map(record => {
+
+                const present =
+                    Number(
+                        record.present_classes ??
+                        record.attended_classes ??
+                        0
+                    );
+
+
+                const total =
+                    Number(
+                        record.total_classes ??
+                        present
+                    );
+
+
+                const percentage =
+                    total > 0
+                        ? (present / total) * 100
+                        : 0;
+
+
+                let status =
+                    "good";
+
+
+                if (percentage < 75) {
+                    status = "danger";
+                }
+                else if (percentage < 85) {
+                    status = "warning";
+                }
+
+
+                return `
+
+                    <div class="attendance-item">
+
+                        <div class="attendance-header">
+
+                            <div class="attendance-name">
+                                ${escapeHTML(record.subject)}
+                            </div>
+
+                            <div class="percentage ${status}">
+                                ${percentage.toFixed(1)}%
+                            </div>
+
+                        </div>
+
+
+                        <div class="attendance-bar">
+
+                            <div
+                                class="attendance-fill ${status}"
+                                style="width:${Math.min(
+                                    percentage,
+                                    100
+                                )}%">
+                            </div>
+
+                        </div>
+
+
+                        <div class="attendance-meta">
+
+                            <span>
+                                ${present}
+                                / ${total}
+                                classes
+                            </span>
+
+                            <span>
+                                ${
+                                    status === "good"
+                                        ? "✓ Safe"
+                                        : status === "warning"
+                                            ? "⚠ Watch"
+                                            : "⚠ Low"
+                                }
+                            </span>
+
+                        </div>
+
+
+                        <button
+                            class="delete-btn"
+                            onclick="deleteAttendance(${record.id})">
+
+                            Delete
+
+                        </button>
+
+                    </div>
+                `;
+
+            })
+            .join("");
+
+
+    updateSummary();
+}
+
+
+/* =====================================================
+   ADD ATTENDANCE
+   ===================================================== */
 
 async function addAttendance(event) {
 
@@ -73,10 +193,395 @@ async function addAttendance(event) {
 
 
     const subject =
-        document.getElementById(
-            "attendanceSubject"
-        ).value.trim();
+        document
+            .getElementById(
+                "attendanceSubject"
+            )
+            .value
+            .trim();
 
+
+    const present =
+        Number(
+            document
+                .getElementById(
+                    "presentClasses"
+                )
+                .value
+        );
+
+
+    const total =
+        Number(
+            document
+                .getElementById(
+                    "totalClasses"
+                )
+                .value
+        );
+
+
+    if (!subject) {
+
+        showAttendanceMessage(
+            "Please enter a subject.",
+            true
+        );
+
+        return;
+    }
+
+
+    if (
+        !Number.isFinite(present) ||
+        !Number.isFinite(total)
+    ) {
+
+        showAttendanceMessage(
+            "Enter valid class numbers.",
+            true
+        );
+
+        return;
+    }
+
+
+    if (total <= 0) {
+
+        showAttendanceMessage(
+            "Total classes must be greater than zero.",
+            true
+        );
+
+        return;
+    }
+
+
+    if (
+        present < 0 ||
+        present > total
+    ) {
+
+        showAttendanceMessage(
+            "Present classes cannot be greater than total classes.",
+            true
+        );
+
+        return;
+    }
+
+
+    try {
+
+        await apiRequest(
+            "/attendance",
+            {
+                method: "POST",
+
+                body: JSON.stringify({
+
+                    subject:
+                        subject,
+
+                    present_classes:
+                        present,
+
+                    total_classes:
+                        total
+
+                })
+            }
+        );
+
+
+        showAttendanceMessage(
+            "✓ Attendance saved successfully!",
+            false
+        );
+
+
+        document
+            .getElementById(
+                "attendanceForm"
+            )
+            .reset();
+
+
+        document
+            .getElementById(
+                "attendancePercentage"
+            )
+            .value = "";
+
+
+        await loadAttendance();
+
+    }
+    catch (error) {
+
+        console.error(error);
+
+        showAttendanceMessage(
+            error.message ||
+            "Unable to save attendance.",
+            true
+        );
+
+    }
+}
+
+
+/* =====================================================
+   DELETE
+   ===================================================== */
+
+async function deleteAttendance(id) {
+
+    if (
+        !confirm(
+            "Delete this attendance record?"
+        )
+    ) {
+        return;
+    }
+
+
+    try {
+
+        await apiRequest(
+            `/attendance/${id}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+
+        await loadAttendance();
+
+    }
+    catch (error) {
+
+        alert(
+            error.message ||
+            "Unable to delete attendance."
+        );
+
+    }
+}
+
+
+/* =====================================================
+   SUMMARY
+   ===================================================== */
+
+function updateSummary() {
+
+    const overall =
+        document.getElementById(
+            "overallAttendance"
+        );
+
+
+    const safe =
+        document.getElementById(
+            "safeSubjects"
+        );
+
+
+    const warning =
+        document.getElementById(
+            "warningSubjects"
+        );
+
+
+    if (!attendanceRecords.length) {
+
+        overall.textContent = "--";
+        safe.textContent = "0";
+        warning.textContent = "0";
+
+        updateAI(0, 0);
+
+        return;
+    }
+
+
+    let totalPresent = 0;
+    let totalClasses = 0;
+
+    let safeCount = 0;
+    let warningCount = 0;
+
+
+    attendanceRecords.forEach(record => {
+
+        const present =
+            Number(
+                record.present_classes ??
+                record.attended_classes ??
+                0
+            );
+
+
+        const total =
+            Number(
+                record.total_classes ??
+                present
+            );
+
+
+        totalPresent += present;
+        totalClasses += total;
+
+
+        const percentage =
+            total > 0
+                ? (present / total) * 100
+                : 0;
+
+
+        if (percentage >= 75) {
+            safeCount++;
+        }
+        else {
+            warningCount++;
+        }
+
+    });
+
+
+    const overallPercentage =
+        totalClasses > 0
+            ? (totalPresent / totalClasses) * 100
+            : 0;
+
+
+    overall.textContent =
+        `${overallPercentage.toFixed(1)}%`;
+
+
+    safe.textContent =
+        safeCount;
+
+
+    warning.textContent =
+        warningCount;
+
+
+    updateAI(
+        overallPercentage,
+        warningCount
+    );
+}
+
+
+/* =====================================================
+   AI INSIGHT
+   ===================================================== */
+
+function updateAI(
+    percentage,
+    warnings
+) {
+
+    const title =
+        document.getElementById(
+            "attendanceAI"
+        );
+
+
+    const description =
+        document.getElementById(
+            "attendanceAIDescription"
+        );
+
+
+    if (!title || !description) {
+        return;
+    }
+
+
+    if (!attendanceRecords.length) {
+
+        title.textContent =
+            "Add attendance to receive an insight.";
+
+        description.textContent =
+            "Corely AI will analyze your attendance.";
+
+        return;
+    }
+
+
+    if (percentage < 75) {
+
+        title.textContent =
+            "⚠ Your attendance needs attention.";
+
+        description.textContent =
+            "Try attending upcoming classes consistently to bring your average above 75%.";
+
+    }
+    else if (percentage < 85) {
+
+        title.textContent =
+            "✦ Your attendance is close to the safe zone.";
+
+        description.textContent =
+            "A few more attended classes can improve your attendance significantly.";
+
+    }
+    else {
+
+        title.textContent =
+            "✦ Excellent attendance.";
+
+        description.textContent =
+            "Your attendance is currently in a healthy range. Keep maintaining the consistency.";
+
+    }
+
+}
+
+
+/* =====================================================
+   MESSAGE
+   ===================================================== */
+
+function showAttendanceMessage(
+    message,
+    error = false
+) {
+
+    const element =
+        document.getElementById(
+            "attendanceMessage"
+        );
+
+
+    element.className =
+        `message ${error ? "error" : "success"}`;
+
+
+    element.textContent =
+        message;
+
+
+    setTimeout(() => {
+
+        element.textContent = "";
+
+        element.className = "";
+
+    }, 4000);
+}
+
+
+/* =====================================================
+   LIVE PERCENTAGE
+   ===================================================== */
+
+function calculateAttendancePercentage() {
 
     const present =
         Number(
@@ -94,432 +599,103 @@ async function addAttendance(event) {
         );
 
 
-    if (!subject) {
-
-        showAttendanceMessage(
-            "Enter the subject name.",
-            true
-        );
-
-        return;
-    }
-
-
-    if (
-        total <= 0 ||
-        present < 0 ||
-        present > total
-    ) {
-
-        showAttendanceMessage(
-            "Enter valid class numbers.",
-            true
-        );
-
-        return;
-    }
-
-
-    try {
-
-        const result =
-            await apiRequest(
-                "/attendance",
-                {
-
-                    method: "POST",
-
-                    body: JSON.stringify({
-
-                        subject,
-
-                        present_classes:
-                            present,
-
-                        total_classes:
-                            total
-
-                    })
-
-                }
-            );
-
-
-        console.log(
-            "Attendance saved:",
-            result
-        );
-
-
-        showAttendanceMessage(
-            "✓ Attendance saved successfully!",
-            false
-        );
-
-
-        document
-            .getElementById(
-                "attendanceForm"
-            )
-            .reset();
-
-
+    const output =
         document.getElementById(
             "attendancePercentage"
-        ).value = "";
-
-
-        loadAttendance();
-
-    }
-    catch(error) {
-
-        console.error(error);
-
-        showAttendanceMessage(
-            error.message,
-            true
         );
 
-    }
-
-}
-
-
-async function loadAttendance() {
-
-    try {
-
-        const result =
-            await apiRequest(
-                "/attendance"
-            );
-
-
-        console.log(
-            "Attendance:",
-            result
-        );
-
-
-        const records =
-            result.attendance || [];
-
-
-        renderAttendance(
-            records
-        );
-
-
-        updateAttendanceSummary(
-            records
-        );
-
-    }
-    catch(error) {
-
-        document.getElementById(
-            "attendanceList"
-        ).innerHTML = `
-
-            <div class="empty">
-
-                ❌ ${error.message}
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-function renderAttendance(records) {
-
-    const container =
-        document.getElementById(
-            "attendanceList"
-        );
-
-
-    container.innerHTML = "";
-
-
-    if (!records.length) {
-
-        container.innerHTML = `
-
-            <div class="empty">
-
-                📊
-
-                <h3>
-                    No attendance records yet
-                </h3>
-
-                <p>
-                    Use "Add Attendance" above.
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-    }
-
-
-    records.forEach(record => {
-
-        const percentage =
-            Number(record.percentage);
-
-
-        let status =
-            "good";
-
-
-        if (percentage < 75)
-            status = "danger";
-
-        else if (percentage < 85)
-            status = "warning";
-
-
-        const card =
-            document.createElement("div");
-
-
-        card.className =
-            "attendance-item";
-
-
-        card.innerHTML = `
-
-            <div class="attendance-header">
-
-                <div class="attendance-name">
-
-                    ${escapeHTML(
-                        record.subject
-                    )}
-
-                </div>
-
-                <div
-                    class="
-                        percentage
-                        ${status}
-                    ">
-
-                    ${percentage.toFixed(1)}%
-
-                </div>
-
-            </div>
-
-
-            <div class="attendance-bar">
-
-                <div
-                    class="
-                        attendance-fill
-                        ${status}
-                    "
-                    style="
-                        width:${Math.min(
-                            100,
-                            percentage
-                        )}%;
-                    ">
-
-                </div>
-
-            </div>
-
-
-            <div class="attendance-meta">
-
-                <span>
-                    Present:
-                    ${record.present_classes}
-                </span>
-
-                <span>
-                    Total:
-                    ${record.total_classes}
-                </span>
-
-                <span>
-                    ${
-                        percentage >= 75
-                            ? "✓ Safe"
-                            : "⚠ Low"
-                    }
-                </span>
-
-            </div>
-
-
-            <button
-                class="delete-btn"
-                onclick="deleteAttendance(${record.id})">
-
-                Delete
-
-            </button>
-
-        `;
-
-
-        container.appendChild(card);
-
-    });
-
-}
-
-
-function updateAttendanceSummary(
-    records
-) {
-
-    if (!records.length) {
-
-        document.getElementById(
-            "overallAttendance"
-        ).textContent = "--";
-
-        document.getElementById(
-            "safeSubjects"
-        ).textContent = "0";
-
-        document.getElementById(
-            "warningSubjects"
-        ).textContent = "0";
-
-        return;
-    }
-
-
-    const average =
-        records.reduce(
-            (sum, record) =>
-                sum +
-                Number(record.percentage),
-            0
-        ) / records.length;
-
-
-    const safe =
-        records.filter(
-            record =>
-                Number(record.percentage) >= 75
-        ).length;
-
-
-    const warning =
-        records.length - safe;
-
-
-    document.getElementById(
-        "overallAttendance"
-    ).textContent =
-        average.toFixed(1) + "%";
-
-
-    document.getElementById(
-        "safeSubjects"
-    ).textContent =
-        safe;
-
-
-    document.getElementById(
-        "warningSubjects"
-    ).textContent =
-        warning;
-
-
-    document.getElementById(
-        "attendanceAI"
-    ).textContent =
-        warning > 0
-            ? `⚠ ${warning} subject(s) need attention.`
-            : "✨ Your attendance is looking healthy!";
-
-
-    document.getElementById(
-        "attendanceAIDescription"
-    ).textContent =
-        warning > 0
-            ? "Try to attend upcoming classes regularly and keep every subject above 75%."
-            : "Keep maintaining your current attendance.";
-
-}
-
-
-async function deleteAttendance(id) {
 
     if (
-        !confirm(
-            "Delete this attendance record?"
-        )
-    ) return;
+        total > 0 &&
+        present >= 0 &&
+        present <= total
+    ) {
 
-
-    try {
-
-        await apiRequest(
-            `/attendance/${id}`,
-            {
-                method: "DELETE"
-            }
-        );
-
-
-        loadAttendance();
+        output.value =
+            `${((present / total) * 100).toFixed(1)}%`;
 
     }
-    catch(error) {
+    else {
 
-        alert(error.message);
+        output.value = "";
 
     }
 
 }
 
 
-function showAttendanceMessage(
-    message,
-    error
-) {
-
-    const element =
-        document.getElementById(
-            "attendanceMessage"
-        );
-
-
-    element.textContent =
-        message;
-
-
-    element.className =
-        error
-            ? "message error"
-            : "message success";
-
-}
-
+/* =====================================================
+   SECURITY
+   ===================================================== */
 
 function escapeHTML(value) {
 
-    const div =
-        document.createElement("div");
-
-    div.textContent =
-        value ?? "";
-
-    return div.innerHTML;
-
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 }
+
+
+/* =====================================================
+   START
+   ===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const form =
+            document.getElementById(
+                "attendanceForm"
+            );
+
+
+        if (form) {
+
+            form.addEventListener(
+                "submit",
+                addAttendance
+            );
+
+        }
+
+
+        const present =
+            document.getElementById(
+                "presentClasses"
+            );
+
+
+        const total =
+            document.getElementById(
+                "totalClasses"
+            );
+
+
+        if (present) {
+
+            present.addEventListener(
+                "input",
+                calculateAttendancePercentage
+            );
+
+        }
+
+
+        if (total) {
+
+            total.addEventListener(
+                "input",
+                calculateAttendancePercentage
+            );
+
+        }
+
+
+        loadAttendance();
+
+    }
+);

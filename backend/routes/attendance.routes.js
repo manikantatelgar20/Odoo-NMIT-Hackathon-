@@ -1,285 +1,262 @@
 const express = require("express");
 const router = express.Router();
 
-const { pool } = require("../config/database");
-const authenticateToken = require("../middleware/auth.middleware");
+const { pool } =
+    require("../config/database");
+
+const authenticateToken =
+    require("../middleware/auth.middleware");
 
 
-// =====================================================
-// GET ATTENDANCE
-// =====================================================
+/* =====================================================
+   GET ATTENDANCE
+   ===================================================== */
 
-router.get("/", authenticateToken, async (req, res) => {
+router.get(
+    "/",
+    authenticateToken,
+    async (req, res) => {
 
-    try {
+        try {
 
-        const result = await pool.query(
-            `
-            SELECT
-                id,
-                user_id,
+            const result =
+                await pool.query(
+                    `
+                    SELECT
+                        id,
+                        user_id,
+                        subject,
+                        attended_classes
+                    FROM attendance
+                    WHERE user_id = $1
+                    ORDER BY id DESC
+                    `,
+                    [req.user.userId]
+                );
+
+
+            res.json({
+
+                success: true,
+
+                attendance:
+                    result.rows
+
+            });
+
+        }
+        catch (error) {
+
+            console.error(
+                "GET ATTENDANCE ERROR:",
+                error.message
+            );
+
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Unable to load attendance."
+
+            });
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ADD ATTENDANCE
+   ===================================================== */
+
+router.post(
+    "/",
+    authenticateToken,
+    async (req, res) => {
+
+        try {
+
+            const {
                 subject,
-                attended_classes
-            FROM attendance
-            WHERE user_id = $1
-            ORDER BY id DESC
-            `,
-            [req.user.userId]
-        );
+                present_classes,
+                total_classes
+            } = req.body;
 
 
-        const attendance =
-            result.rows.map(row => ({
+            if (!subject) {
 
-                id: row.id,
+                return res.status(400).json({
 
-                user_id: row.user_id,
+                    success: false,
 
-                subject: row.subject,
+                    message:
+                        "Subject is required."
 
-                attended_classes:
-                    row.attended_classes
-
-            }));
-
-
-        res.json({
-
-            success: true,
-
-            attendance
-
-        });
-
-    }
-    catch (error) {
-
-        console.error(
-            "GET ATTENDANCE ERROR:",
-            error.message
-        );
-
-
-        res.status(500).json({
-
-            success: false,
-
-            message:
-                "Unable to load attendance."
-
-        });
-
-    }
-
-});
-
-
-// =====================================================
-// ADD ATTENDANCE
-// =====================================================
-
-router.post("/", authenticateToken, async (req, res) => {
-
-    try {
-
-        const {
-            subject,
-            present_classes,
-            total_classes
-        } = req.body;
-
-
-        // -----------------------------------------
-        // Validate
-        // -----------------------------------------
-
-        if (!subject) {
-
-            return res.status(400).json({
-
-                success: false,
-
-                message:
-                    "Subject is required."
-
-            });
-
-        }
-
-
-        const present =
-            Number(present_classes);
-
-
-        const total =
-            Number(total_classes);
-
-
-        if (
-            !Number.isFinite(present) ||
-            !Number.isFinite(total)
-        ) {
-
-            return res.status(400).json({
-
-                success: false,
-
-                message:
-                    "Present and total classes must be numbers."
-
-            });
-
-        }
-
-
-        if (total <= 0) {
-
-            return res.status(400).json({
-
-                success: false,
-
-                message:
-                    "Total classes must be greater than zero."
-
-            });
-
-        }
-
-
-        if (
-            present < 0 ||
-            present > total
-        ) {
-
-            return res.status(400).json({
-
-                success: false,
-
-                message:
-                    "Present classes cannot be greater than total classes."
-
-            });
-
-        }
-
-
-        // -----------------------------------------
-        // Calculate percentage
-        // -----------------------------------------
-
-        const percentage =
-            Number(
-                ((present / total) * 100).toFixed(2)
-            );
-
-
-        // -----------------------------------------
-        // IMPORTANT
-        //
-        // Your database column is:
-        // attended_classes
-        //
-        // NOT present_classes
-        // -----------------------------------------
-
-        const result =
-            await pool.query(
-                `
-                INSERT INTO attendance
-                (
-                    user_id,
-                    subject,
-                    attended_classes
-                )
-                VALUES
-                ($1, $2, $3)
-                RETURNING
-                    id,
-                    user_id,
-                    subject,
-                    attended_classes
-                `,
-                [
-                    req.user.userId,
-                    subject.trim(),
-                    present
-                ]
-            );
-
-
-        const record =
-            result.rows[0];
-
-
-        // -----------------------------------------
-        // Return the values needed by frontend
-        // -----------------------------------------
-
-        res.status(201).json({
-
-            success: true,
-
-            message:
-                "Attendance saved successfully.",
-
-            attendance: {
-
-                id: record.id,
-
-                user_id:
-                    record.user_id,
-
-                subject:
-                    record.subject,
-
-                attended_classes:
-                    record.attended_classes,
-
-                present_classes:
-                    present,
-
-                total_classes:
-                    total,
-
-                percentage:
-                    percentage
+                });
 
             }
 
-        });
 
-    }
-    catch (error) {
-
-        console.error(
-            "ADD ATTENDANCE ERROR:"
-        );
-
-        console.error(
-            error.message
-        );
+            const present =
+                Number(present_classes);
 
 
-        res.status(500).json({
+            const total =
+                Number(total_classes);
 
-            success: false,
 
-            message:
-                "Unable to save attendance.",
+            if (
+                !Number.isFinite(present) ||
+                !Number.isFinite(total)
+            ) {
 
-            error:
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Class values must be numbers."
+
+                });
+
+            }
+
+
+            if (total <= 0) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Total classes must be greater than zero."
+
+                });
+
+            }
+
+
+            if (
+                present < 0 ||
+                present > total
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Invalid attendance values."
+
+                });
+
+            }
+
+
+            const result =
+                await pool.query(
+                    `
+                    INSERT INTO attendance
+                    (
+                        user_id,
+                        subject,
+                        attended_classes
+                    )
+                    VALUES
+                    ($1, $2, $3)
+                    RETURNING
+                        id,
+                        user_id,
+                        subject,
+                        attended_classes
+                    `,
+                    [
+                        req.user.userId,
+                        subject.trim(),
+                        present
+                    ]
+                );
+
+
+            const record =
+                result.rows[0];
+
+
+            const percentage =
+                Number(
+                    (
+                        (present / total) * 100
+                    ).toFixed(2)
+                );
+
+
+            res.status(201).json({
+
+                success: true,
+
+                message:
+                    "Attendance saved successfully.",
+
+                attendance: {
+
+                    id:
+                        record.id,
+
+                    user_id:
+                        record.user_id,
+
+                    subject:
+                        record.subject,
+
+                    attended_classes:
+                        record.attended_classes,
+
+                    present_classes:
+                        present,
+
+                    total_classes:
+                        total,
+
+                    percentage:
+                        percentage
+
+                }
+
+            });
+
+        }
+        catch (error) {
+
+            console.error(
+                "ADD ATTENDANCE ERROR:",
                 error.message
+            );
 
-        });
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Unable to save attendance.",
+
+                error:
+                    error.message
+
+            });
+
+        }
 
     }
+);
 
-});
 
-
-// =====================================================
-// DELETE ATTENDANCE
-// =====================================================
+/* =====================================================
+   DELETE ATTENDANCE
+   ===================================================== */
 
 router.delete(
     "/:id",
@@ -303,9 +280,7 @@ router.delete(
                 );
 
 
-            if (
-                result.rows.length === 0
-            ) {
+            if (!result.rows.length) {
 
                 return res.status(404).json({
 

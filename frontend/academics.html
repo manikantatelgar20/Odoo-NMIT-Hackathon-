@@ -5,310 +5,718 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Corely | Academics</title>
 
-    <link
-        rel="stylesheet"
-        href="css/style.css">
+    <link rel="stylesheet"
+          href="css/style.css">
 
     <style>
 
-        .page {
+        /* =================================================
+           CORELY CONTENT FRAME
+        ================================================= */
+
+        .academics-page {
+
             margin-left: 280px;
-            padding: 40px;
+
+            width: calc(100% - 280px);
+
             min-height: 100vh;
+
+            padding: 32px 40px;
+
+            box-sizing: border-box;
+
         }
 
-        .topbar {
+
+        .academics-container {
+
+            width: 100%;
+
+            max-width: 1100px;
+
+            margin: 0 auto;
+
+        }
+
+
+        /* =================================================
+           HEADER
+        ================================================= */
+
+        .page-header {
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
-            margin-bottom: 30px;
+
+            margin-bottom: 25px;
+
         }
 
-        .topbar h1 {
+
+        .page-header h1 {
+
             margin: 0;
-            font-size: 36px;
+
+            font-size: 34px;
+
             color: #252943;
+
         }
 
-        .topbar p {
-            color: #7b8097;
-            margin-top: 8px;
+
+        .page-header p {
+
+            margin-top: 7px;
+
+            color: #7c8197;
+
+            font-size: 14px;
+
         }
+
 
         .student-pill {
-            background: white;
-            padding: 12px 20px;
+
+            padding: 11px 18px;
+
             border-radius: 30px;
-            box-shadow: 0 8px 25px rgba(80,70,150,.08);
-        }
 
-        .card {
-            background: rgba(255,255,255,.94);
-            border: 1px solid #e7e8f4;
-            border-radius: 24px;
-            padding: 28px;
-            margin-bottom: 25px;
-            box-shadow: 0 15px 40px rgba(60,50,120,.08);
-        }
-
-        .card-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .card-title h2 {
-            margin: 0;
-            color: #292d43;
-        }
-
-        .card-title span {
-            color: #7566f9;
-            font-weight: 700;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2,1fr);
-            gap: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .form-group label {
-            font-size: 13px;
-            font-weight: 700;
-            color: #62677d;
-        }
-
-        .form-group input {
-            padding: 14px 16px;
-            border: 1px solid #dddff0;
-            border-radius: 13px;
-            background: #fafaff;
-            font-size: 15px;
-            outline: none;
-            transition: .2s;
-        }
-
-        .form-group input:focus {
-            border-color: #7968f7;
-            box-shadow: 0 0 0 4px rgba(121,104,247,.1);
             background: white;
-        }
 
-        .form-group input[readonly] {
-            background: #f1efff;
-            color: #6958e8;
-            font-weight: 800;
-        }
+            border: 1px solid #e8e5f4;
 
-        .add-btn {
-            margin-top: 22px;
-            border: none;
-            padding: 14px 24px;
-            border-radius: 13px;
-            color: white;
-            font-size: 14px;
-            font-weight: 800;
-            cursor: pointer;
-            background: linear-gradient(
-                135deg,
-                #7060f7,
-                #a765e8,
-                #e17dc6
-            );
-            box-shadow: 0 10px 25px rgba(112,96,247,.25);
-            transition: .2s;
-        }
+            box-shadow:
+                0 8px 22px
+                rgba(80,70,150,.07);
 
-        .add-btn:hover {
-            transform: translateY(-3px);
-        }
+            color: #6658df;
 
-        .message {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 10px;
+            font-size: 13px;
+
             font-weight: 700;
+
+            white-space: nowrap;
+
         }
 
-        .success {
-            background: #eafaf3;
-            color: #20865d;
-        }
 
-        .error {
-            background: #fff0f3;
-            color: #c34d65;
-        }
+        /* =================================================
+           SUMMARY
+        ================================================= */
 
         .summary-grid {
+
             display: grid;
-            grid-template-columns: repeat(4,1fr);
-            gap: 18px;
-            margin-bottom: 25px;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 16px;
+
+            margin-bottom: 20px;
+
         }
 
-        .summary {
-            padding: 22px;
-            border-radius: 20px;
-            background: linear-gradient(
-                135deg,
-                #ffffff,
-                #f5f2ff
-            );
-            border: 1px solid #e7e4f8;
+
+        .summary-card {
+
+            padding: 20px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #f5f2ff
+                );
+
+            border: 1px solid #e7e3f5;
+
+            box-shadow:
+                0 8px 25px
+                rgba(80,70,140,.06);
+
         }
 
-        .summary small {
+
+        .summary-card small {
+
             color: #85899d;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: .5px;
+
         }
 
-        .summary strong {
+
+        .summary-card strong {
+
             display: block;
-            margin-top: 8px;
-            font-size: 28px;
+
+            margin-top: 7px;
+
+            font-size: 26px;
+
             color: #302e4c;
+
         }
 
-        .subjects {
-            display: grid;
-            grid-template-columns: repeat(2,1fr);
-            gap: 18px;
+
+        /* =================================================
+           MAIN CARD
+        ================================================= */
+
+        .academic-card {
+
+            width: 100%;
+
+            padding: 25px;
+
+            margin-bottom: 20px;
+
+            box-sizing: border-box;
+
+            background:
+                rgba(255,255,255,.97);
+
+            border:
+                1px solid #e5e3f3;
+
+            border-radius: 21px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(83,70,150,.07);
+
         }
+
+
+        .card-heading {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .card-heading h2 {
+
+            margin: 0;
+
+            font-size: 20px;
+
+            color: #292d43;
+
+        }
+
+
+        .card-heading span {
+
+            color: #705ff4;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+        }
+
+
+        /* =================================================
+           FORM
+        ================================================= */
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 16px;
+
+        }
+
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 7px;
+
+        }
+
+
+        .form-group label {
+
+            color: #62677d;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+        }
+
+
+        .form-group input {
+
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border:
+                1px solid #dddff0;
+
+            border-radius: 11px;
+
+            background: #fafaff;
+
+            color: #252943;
+
+            font-size: 14px;
+
+            outline: none;
+
+        }
+
+
+        .form-group input:focus {
+
+            border-color: #7664f5;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(118,100,245,.10);
+
+            background: white;
+
+        }
+
+
+        .form-group input[readonly] {
+
+            background: #f0edff;
+
+            color: #6958e8;
+
+            font-weight: 900;
+
+        }
+
+
+        /* =================================================
+           BUTTON
+        ================================================= */
+
+        .save-btn {
+
+            margin-top: 18px;
+
+            padding: 12px 22px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6d5dfc,
+                    #9567f5,
+                    #d46dcc
+                );
+
+            color: white;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 22px
+                rgba(109,93,252,.22);
+
+            transition: .2s ease;
+
+        }
+
+
+        .save-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+        }
+
+
+        /* =================================================
+           MESSAGE
+        ================================================= */
+
+        .message {
+
+            margin-top: 12px;
+
+            padding: 10px 12px;
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+        }
+
+
+        .success {
+
+            background: #eafaf3;
+
+            color: #20865d;
+
+        }
+
+
+        .error {
+
+            background: #fff0f3;
+
+            color: #c34f67;
+
+        }
+
+
+        /* =================================================
+           SUBJECTS
+        ================================================= */
+
+        .subjects-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 15px;
+
+        }
+
 
         .subject-card {
-            padding: 22px;
-            border-radius: 20px;
+
+            padding: 19px;
+
             background: white;
-            border: 1px solid #e5e5f0;
-            box-shadow: 0 10px 30px rgba(70,60,130,.07);
-            transition: .2s;
+
+            border:
+                1px solid #e5e5f0;
+
+            border-radius: 17px;
+
+            box-shadow:
+                0 7px 22px
+                rgba(70,60,130,.06);
+
+            transition: .2s ease;
+
         }
+
 
         .subject-card:hover {
-            transform: translateY(-4px);
+
+            transform:
+                translateY(-3px);
+
         }
+
 
         .subject-header {
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
+
         }
+
 
         .subject-name {
-            font-size: 20px;
+
+            font-size: 17px;
+
             font-weight: 800;
+
             color: #292d43;
+
         }
+
 
         .grade {
-            padding: 9px 13px;
-            border-radius: 12px;
+
+            padding: 7px 10px;
+
+            border-radius: 9px;
+
             background: #eeeaff;
+
             color: #6958e8;
+
+            font-size: 12px;
+
             font-weight: 900;
+
         }
 
-        .marks {
+
+        .marks-grid {
+
             display: grid;
-            grid-template-columns: repeat(3,1fr);
-            gap: 10px;
-            margin-top: 20px;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 8px;
+
+            margin-top: 15px;
+
         }
 
-        .mark {
-            background: #f7f7fc;
-            padding: 13px;
-            border-radius: 12px;
+
+        .mark-box {
+
+            padding: 11px;
+
             text-align: center;
-        }
 
-        .mark small {
-            display: block;
-            color: #85899d;
-            font-size: 10px;
-        }
-
-        .mark strong {
-            display: block;
-            margin-top: 5px;
-            font-size: 20px;
-        }
-
-        .progress {
-            height: 8px;
-            background: #eeeef6;
             border-radius: 10px;
-            overflow: hidden;
-            margin-top: 18px;
+
+            background: #f7f7fc;
+
         }
 
-        .progress div {
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                #7160f7,
-                #c66de4
-            );
+
+        .mark-box small {
+
+            display: block;
+
+            color: #85899d;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
         }
+
+
+        .mark-box strong {
+
+            display: block;
+
+            margin-top: 4px;
+
+            font-size: 17px;
+
+            color: #302e4c;
+
+        }
+
+
+        .progress-bar {
+
+            height: 7px;
+
+            margin-top: 15px;
+
+            background: #eeeeF6;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+        }
+
+
+        .progress-fill {
+
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #7160f7,
+                    #c66de4
+                );
+
+        }
+
 
         .delete-btn {
-            margin-top: 15px;
+
+            margin-top: 12px;
+
+            padding: 7px 11px;
+
             border: none;
-            padding: 8px 13px;
-            border-radius: 9px;
+
+            border-radius: 8px;
+
             background: #fff0f3;
+
             color: #c44f67;
+
             cursor: pointer;
+
+            font-size: 11px;
+
             font-weight: 700;
+
         }
 
-        .ai-box {
-            background: linear-gradient(
-                135deg,
-                #f3f0ff,
-                #fff1fa
-            );
-            border: 1px solid #e1d9ff;
+
+        /* =================================================
+           AI
+        ================================================= */
+
+        .ai-card {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f1efff,
+                    #fff0fa
+                );
+
+            border:
+                1px solid #ddd5ff;
+
         }
 
-        .ai-box h3 {
+
+        .ai-card h3 {
+
+            margin-top: 0;
+
             color: #6d59ed;
+
+            font-size: 16px;
+
         }
+
+
+        .ai-card strong {
+
+            color: #302e4c;
+
+            font-size: 14px;
+
+        }
+
+
+        .ai-card p {
+
+            color: #777b91;
+
+            font-size: 13px;
+
+        }
+
 
         .empty {
+
             text-align: center;
-            padding: 50px;
+
+            padding: 35px;
+
             color: #81869b;
+
         }
 
-        @media(max-width:900px) {
 
-            .page {
-                margin-left: 0;
-                padding: 20px;
-            }
+        /* =================================================
+           RESPONSIVE
+        ================================================= */
 
-            .form-grid,
-            .subjects {
-                grid-template-columns: 1fr;
-            }
+        @media(max-width: 1000px) {
 
             .summary-grid {
-                grid-template-columns: repeat(2,1fr);
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+        }
+
+
+        @media(max-width: 800px) {
+
+            .academics-page {
+
+                width: 100%;
+
+                margin-left: 0;
+
+                padding: 25px 18px;
+
+            }
+
+
+            .form-grid,
+            .subjects-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .page-header {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 12px;
+
+            }
+
+        }
+
+
+        @media(max-width: 550px) {
+
+            .summary-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .marks-grid {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+
             }
 
         }
@@ -321,12 +729,106 @@
 <body>
 
 
-<!-- Keep your existing sidebar here -->
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            C
+        </div>
+
+        <div>
+
+            <div class="logo-name">
+                Corely
+            </div>
+
+            <div class="logo-tag">
+                ADAPTIVE
+            </div>
+
+        </div>
+
+    </div>
 
 
-<main class="page">
+    <nav class="nav">
 
-    <div class="topbar">
+        <a href="dashboard.html"
+           class="nav-link">
+
+            ◉ Dashboard
+
+        </a>
+
+
+        <a href="schedule.html"
+           class="nav-link">
+
+            📅 My Schedule
+
+        </a>
+
+
+        <a href="tasks.html"
+           class="nav-link">
+
+            ✓ Tasks
+
+        </a>
+
+
+        <a href="academics.html"
+           class="nav-link">
+
+            🎓 Academics
+
+        </a>
+
+
+        <a href="attendance.html"
+           class="nav-link">
+
+            📊 Attendance
+
+        </a>
+
+
+        <a href="profile.html"
+           class="nav-link">
+
+            ◯ Profile
+
+        </a>
+
+
+        <a href="login.html"
+           id="logoutLink"
+           class="nav-link logout">
+
+            ↪ Logout
+
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<!-- =====================================================
+     CONTENT
+===================================================== -->
+
+<main class="academics-page">
+
+<div class="academics-container">
+
+
+    <header class="page-header">
 
         <div>
 
@@ -335,25 +837,26 @@
             </h1>
 
             <p>
-                Add and manage your academic performance.
+                Track your subjects, marks and academic progress.
             </p>
 
         </div>
 
+
         <div class="student-pill">
-            🎓 Student
+
+            🎓 My Academics
+
         </div>
 
-    </div>
+    </header>
 
 
-    <!-- =========================================
-         SUMMARY
-    ========================================== -->
+    <!-- SUMMARY -->
 
-    <div class="summary-grid">
+    <section class="summary-grid">
 
-        <div class="summary">
+        <div class="summary-card">
 
             <small>
                 SUBJECTS
@@ -366,7 +869,7 @@
         </div>
 
 
-        <div class="summary">
+        <div class="summary-card">
 
             <small>
                 AVERAGE
@@ -379,7 +882,7 @@
         </div>
 
 
-        <div class="summary">
+        <div class="summary-card">
 
             <small>
                 BEST GRADE
@@ -392,7 +895,7 @@
         </div>
 
 
-        <div class="summary">
+        <div class="summary-card">
 
             <small>
                 CGPA ESTIMATE
@@ -404,16 +907,14 @@
 
         </div>
 
-    </div>
+    </section>
 
 
-    <!-- =========================================
-         ADD SUBJECT
-    ========================================== -->
+    <!-- ADD SUBJECT -->
 
-    <section class="card">
+    <section class="academic-card">
 
-        <div class="card-title">
+        <div class="card-heading">
 
             <h2>
                 ➕ Add Subject
@@ -427,6 +928,7 @@
 
 
         <form id="academicForm">
+
 
             <div class="form-grid">
 
@@ -500,7 +1002,7 @@
 
             <button
                 type="submit"
-                class="add-btn">
+                class="save-btn">
 
                 + Save Subject
 
@@ -514,13 +1016,11 @@
     </section>
 
 
-    <!-- =========================================
-         SUBJECTS
-    ========================================== -->
+    <!-- SUBJECTS -->
 
-    <section class="card">
+    <section class="academic-card">
 
-        <div class="card-title">
+        <div class="card-heading">
 
             <h2>
                 📚 My Subjects
@@ -535,11 +1035,11 @@
 
         <div
             id="subjects"
-            class="subjects">
+            class="subjects-grid">
 
             <div class="empty">
 
-                Loading your subjects...
+                Loading subjects...
 
             </div>
 
@@ -548,33 +1048,37 @@
     </section>
 
 
-    <!-- =========================================
-         AI
-    ========================================== -->
+    <!-- AI -->
 
-    <section class="card ai-box">
+    <section class="academic-card ai-card">
 
         <h3>
             ✦ Corely AI Academic Insight
         </h3>
 
         <strong id="academicAI">
+
             Add your subjects to receive an insight.
+
         </strong>
 
         <p id="academicAIDescription">
+
             Corely AI will analyze your academic performance.
+
         </p>
 
     </section>
 
 
+</div>
+
 </main>
 
 
 <script src="js/api.js"></script>
+<script src="js/navigation.js"></script>
 <script src="js/academics.js"></script>
-
 
 </body>
 
