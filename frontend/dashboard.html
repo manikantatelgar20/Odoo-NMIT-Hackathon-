@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Corely | Dashboard</title>
+
+    <link rel="stylesheet"
+          href="css/style.css">
+
+</head>
+
+<body>
+
+<div class="app-layout">
+
+
+    <aside class="sidebar">
+
+        <a href="dashboard.html"
+           class="brand">
+
+            <div class="brand-logo">C</div>
+
+            <div>
+                <strong>Corely</strong>
+                <span>ADAPTIVE</span>
+            </div>
+
+        </a>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html"
+               class="active">
+                ◉ Dashboard
+            </a>
+
+            <a href="schedule.html">
+                📅 My Schedule
+            </a>
+
+            <a href="tasks.html">
+                ✓ Tasks
+            </a>
+
+            <a href="academics.html">
+                🎓 Academics
+            </a>
+
+            <a href="#">
+                📊 Attendance
+            </a>
+
+            <a href="#">
+                ⚙ Profile
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <main class="app-main">
+
+        <header class="app-header">
+
+            <div>
+
+                <h1>
+                    Good morning 👋
+                </h1>
+
+                <p>
+                    Here's what your day looks like.
+                </p>
+
+            </div>
+
+
+            <div class="profile-chip">
+
+                <div class="profile-avatar">
+                    C
+                </div>
+
+                <span>
+                    Student
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <small>
+                    TODAY'S FLOW
+                </small>
+
+                <h2>82%</h2>
+
+                <p>
+                    Well planned
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <small>
+                    PENDING TASKS
+                </small>
+
+                <h2>4</h2>
+
+                <p>
+                    2 high priority
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <small>
+                    ATTENDANCE
+                </small>
+
+                <h2>86%</h2>
+
+                <p>
+                    Current average
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <small>
+                    NEXT EXAM
+                </small>
+
+                <h2>12</h2>
+
+                <p>
+                    Days remaining
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="dashboard-grid">
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h2>
+                        Today's Schedule
+                    </h2>
+
+                    <a href="schedule.html">
+                        View all
+                    </a>
+
+                </div>
+
+
+                <div class="schedule-row">
+
+                    <span class="schedule-time">
+                        10:00
+                    </span>
+
+                    <span class="schedule-dot"></span>
+
+                    <div>
+
+                        <strong>
+                            Mathematics
+                        </strong>
+
+                        <small>
+                            Room B-204
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="schedule-row">
+
+                    <span class="schedule-time">
+                        12:00
+                    </span>
+
+                    <span class="schedule-dot"></span>
+
+                    <div>
+
+                        <strong>
+                            Lunch Break
+                        </strong>
+
+                        <small>
+                            60 minutes
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="schedule-row">
+
+                    <span class="schedule-time">
+                        13:30
+                    </span>
+
+                    <span class="schedule-dot"></span>
+
+                    <div>
+
+                        <strong>
+                            DSA Assignment
+                        </strong>
+
+                        <small>
+                            High priority
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="schedule-row">
+
+                    <span class="schedule-time">
+                        15:30
+                    </span>
+
+                    <span class="schedule-dot"></span>
+
+                    <div>
+
+                        <strong>
+                            Java Revision
+                        </strong>
+
+                        <small>
+                            60 minutes
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h2>
+                        Priority Tasks
+                    </h2>
+
+                    <a href="tasks.html">
+                        Manage
+                    </a>
+
+                </div>
+
+
+                <div class="priority-item">
+
+                    <strong>
+                        DSA Assignment
+                    </strong>
+
+                    <p>
+                        Due today at 6:00 PM
+                    </p>
+
+                </div>
+
+
+                <div class="priority-item">
+
+                    <strong>
+                        Physics Lab Report
+                    </strong>
+
+                    <p>
+                        Due tomorrow
+                    </p>
+
+                </div>
+
+
+                <div class="priority-item">
+
+                    <strong>
+                        Java Revision
+                    </strong>
+
+                    <p>
+                        60 minutes planned
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="adaptive-card">
+
+            <strong>
+                ✦ Corely Adaptive Intelligence
+            </strong>
+
+            <p>
+                Your DSA assignment is approaching
+                its deadline. If your current activity
+                takes longer than expected, Corely can
+                reorganize the remaining schedule while
+                protecting important classes and deadlines.
+            </p>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
