@@ -44,7 +44,7 @@ if (loginForm) {
 
     loginForm.addEventListener(
         "submit",
-        function(event) {
+        async function(event) {
 
             event.preventDefault();
 
@@ -62,7 +62,6 @@ if (loginForm) {
 
 
             clearError("emailError");
-
             clearError("passwordError");
 
 
@@ -106,10 +105,83 @@ if (loginForm) {
             if (!valid) return;
 
 
-            alert(
-                "Frontend validation successful.\n\n" +
-                "Backend authentication will be connected next."
-            );
+            const submitButton =
+                loginForm.querySelector(
+                    "button[type='submit']"
+                );
+
+
+            const originalText =
+                submitButton.textContent;
+
+
+            try {
+
+                submitButton.disabled = true;
+
+                submitButton.textContent =
+                    "Signing in...";
+
+
+                const response =
+                    await apiRequest(
+                        "/auth/login",
+                        {
+                            method: "POST",
+
+                            body: JSON.stringify({
+
+                                email,
+                                password
+
+                            })
+                        }
+                    );
+
+
+                if (response.token) {
+
+                    localStorage.setItem(
+                        "corely_token",
+                        response.token
+                    );
+
+                }
+
+
+                if (response.user) {
+
+                    localStorage.setItem(
+                        "corely_user",
+                        JSON.stringify(
+                            response.user
+                        )
+                    );
+
+                }
+
+
+                window.location.href =
+                    "dashboard.html";
+
+
+            }
+            catch (error) {
+
+                showError(
+                    "passwordError",
+                    error.message
+                );
+
+            }
+            finally {
+
+                submitButton.disabled = false;
+
+                submitButton.textContent =
+                    originalText;
+
+            }
 
         }
     );
@@ -131,7 +203,7 @@ if (registerForm) {
 
     registerForm.addEventListener(
         "submit",
-        function(event) {
+        async function(event) {
 
             event.preventDefault();
 
@@ -241,10 +313,94 @@ if (registerForm) {
             if (!valid) return;
 
 
-            alert(
-                "Registration form validated successfully.\n\n" +
-                "Backend registration will be connected next."
-            );
+            const submitButton =
+                registerForm.querySelector(
+                    "button[type='submit']"
+                );
+
+
+            const originalText =
+                submitButton.textContent;
+
+
+            try {
+
+                submitButton.disabled = true;
+
+                submitButton.textContent =
+                    "Creating account...";
+
+
+                const response =
+                    await apiRequest(
+                        "/auth/register",
+                        {
+                            method: "POST",
+
+                            body: JSON.stringify({
+
+                                name,
+                                studentId,
+                                email,
+                                password
+
+                            })
+                        }
+                    );
+
+
+                if (response.token) {
+
+                    localStorage.setItem(
+                        "corely_token",
+                        response.token
+                    );
+
+                }
+
+
+                if (response.user) {
+
+                    localStorage.setItem(
+                        "corely_user",
+                        JSON.stringify(
+                            response.user
+                        )
+                    );
+
+                }
+
+
+                alert(
+                    response.message ||
+                    "Account created successfully."
+                );
+
+
+                registerForm.reset();
+
+
+                window.location.href =
+                    "login.html";
+
+
+            }
+            catch (error) {
+
+                showError(
+                    "emailError",
+                    error.message
+                );
+
+            }
+            finally {
+
+                submitButton.disabled = false;
+
+                submitButton.textContent =
+                    originalText;
+
+            }
 
         }
     );
