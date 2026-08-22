@@ -14,7 +14,6 @@ async function apiRequest(
 
             headers: {
                 "Content-Type": "application/json",
-
                 ...(options.headers || {})
             }
         }
@@ -27,7 +26,8 @@ async function apiRequest(
 
         data = await response.json();
 
-    } catch {
+    }
+    catch {
 
         data = {};
 
